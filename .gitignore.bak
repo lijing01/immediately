@@ -1,0 +1,22 @@
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+
+#############
+## Android Studio
+#############
+.idea/
+.gradle/
+build/
+*.iml
+signing.properties
+project.properties
+javaheap.properties
+%USERPROFILE%/.config/git/gitk
+captures/
+*.hprof

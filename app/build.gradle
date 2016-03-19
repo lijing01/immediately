@@ -1,0 +1,102 @@
+apply plugin: 'com.android.application'
+
+
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd")
+}
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        applicationId rootProject.ext.applicationId
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+    }
+
+    //签名配置
+    signingConfigs {
+        //定义签名property
+        def Properties props = new Properties()
+        def propFile = new File('signing.properties')
+        if (propFile.canRead()) {
+            props.load(new FileInputStream(propFile))
+
+            signingConfigs {
+                release {
+                    storeFile file(props['store_file'])
+                    storePassword props['store_password']
+                    keyAlias props['key_alias']
+                    keyPassword props['key_password']
+                }
+                debug {
+                    storeFile file(props['store_file'])
+                    storePassword props['store_password']
+                    keyAlias props['key_alias']
+                    keyPassword props['key_password']
+                }
+            }
+        } else {
+            signingConfigs {
+                debug {
+                    println 'signing.properties not found'
+                }
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            //proguard 使用
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    //lint 配置
+    lintOptions {
+        abortOnError false
+    }
+
+    //配置java 版本
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    //输出文件配置
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            def intoFile = "D:\\immediateRelease"
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                //这里修改apk文件名
+                def fileName = "immediatel-${defaultConfig.versionCode}-${releaseTime()}.apk"
+                output.outputFile = new File(intoFile, fileName)
+            }
+
+            if (variant.getBuildType().isMinifyEnabled()) {
+                variant.assemble.doLast {
+                    copy {
+                        from variant.mappingFile
+                        into intoFile
+                        rename { String fileName ->
+                            "mapping-${defaultConfig.versionCode}-${releaseTime()}.txt"
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile project(':tlibrary')
+}
