@@ -17,9 +17,7 @@ android {
         versionName rootProject.ext.versionName
     }
 
-    //签名配置
     signingConfigs {
-        //定义签名property
         def Properties props = new Properties()
         def propFile = new File('signing.properties')
         if (propFile.canRead()) {
@@ -102,4 +100,5 @@ dependencies {
     compile ('com.squareup.okhttp3:mockwebserver:3.2.0') {
         exclude(group: 'junit', module: 'junit')
     }
+    compile 'com.zhy:okhttputils:2.3.8'
 }
