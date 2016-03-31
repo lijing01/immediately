@@ -1,6 +1,7 @@
 package com.tracelijing.immediately.fragment;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+
 import com.squareup.leakcanary.RefWatcher;
 import com.tracelijing.immediately.MyApplication;
 

@@ -1,15 +1,36 @@
 package com.tracelijing.immediately;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
-public class EntryActivity extends AppCompatActivity {
+import com.tracelijing.immediately.fragment.FindArticleFragment;
+import com.tracelijing.immediately.fragment.HotMessageFragment;
+import com.tracelijing.immediately.fragment.MyMessageFragment;
+import com.tracelijing.tlibrary.ViewUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class EntryActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
+
+	RadioGroup radioGroup;
+	RadioButton myMessage;
+	RadioButton hotMessage;
+	RadioButton findArticle;
+	ViewPager viewPager;
+
+	private ArrayList<Fragment> fragments = new ArrayList<>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -18,14 +39,43 @@ public class EntryActivity extends AppCompatActivity {
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
-		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-		fab.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-						.setAction("Action", null).show();
-			}
-		});
+		radioGroup = ViewUtil.$(this, R.id.radioGroup);
+		myMessage = ViewUtil.$(this, R.id.my_message);
+		hotMessage = ViewUtil.$(this, R.id.hot_message);
+		findArticle = ViewUtil.$(this, R.id.find_theme);
+		viewPager = ViewUtil.$(this, R.id.viewPager);
+		init();
+		TabPageAdapter tabPageAdapter = new TabPageAdapter(
+				getSupportFragmentManager(), fragments);
+		viewPager.setAdapter(tabPageAdapter);
+		viewPager.addOnPageChangeListener(this);
+		myMessage.setOnClickListener(this);
+		hotMessage.setOnClickListener(this);
+		findArticle.setOnClickListener(this);
+		selectView(0);
+	}
+
+	private void selectView(int position) {
+		viewPager.setCurrentItem(position);
+		for (int i = 0; i < radioGroup.getChildCount(); i++) {
+			RadioButton child = (RadioButton) radioGroup.getChildAt(i);
+			child.setTextColor(getResources().getColor(
+					R.color.dark_gray));
+		}
+		// 切换页面
+		viewPager.setCurrentItem(position, false);
+		RadioButton select = (RadioButton) radioGroup.getChildAt(position);
+		select.setTextColor(getResources().getColor(
+				R.color.yellow));
+	}
+
+	protected void init() {
+		Fragment myMessageFragment = new MyMessageFragment();
+		Fragment hotMessageFragment = new HotMessageFragment();
+		Fragment findArticleFragment = new FindArticleFragment();
+		fragments.add(hotMessageFragment);
+		fragments.add(myMessageFragment);
+		fragments.add(findArticleFragment);
 	}
 
 	@Override
@@ -48,5 +98,63 @@ public class EntryActivity extends AppCompatActivity {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+	}
+
+	@Override
+	public void onPageSelected(int position) {
+		selectView(position);
+	}
+
+	@Override
+	public void onPageScrollStateChanged(int state) {
+
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+			case R.id.my_message:
+				selectView(0);
+				break;
+			case R.id.hot_message:
+				selectView(1);
+				break;
+			case R.id.find_theme:
+				selectView(2);
+				break;
+		}
+	}
+
+	public class TabPageAdapter extends FragmentPagerAdapter {
+
+		private List<Fragment> fragments;
+
+		public TabPageAdapter(FragmentManager fm, List<Fragment> fragments) {
+			super(fm);
+			this.fragments = fragments;
+		}
+
+		@Override
+		public Fragment getItem(int position) {
+			return fragments.get(position);
+		}
+
+		@Override
+		public int getCount() {
+			return fragments.size();
+		}
+
+		/**
+		 * 重写，不让Fragment销毁
+		 */
+		@Override
+		public void destroyItem(ViewGroup container, int position, Object object) {
+
+		}
 	}
 }

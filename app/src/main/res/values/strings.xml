@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Immediately</string>
     <string name="action_settings">Settings</string>
+    <string name="my_message">我的消息</string>
+    <string name="hot_message">热门消息</string>
+    <string name="find_theme">发现主题</string>
 </resources>

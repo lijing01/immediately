@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 
-
 def releaseTime() {
     return new Date().format("yyyy-MM-dd")
 }

@@ -3,4 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="yellow">#ffff00</color>
+    <color name="diver_line">#808080</color>
+    <color name="yellow1">#ff9900</color>
+    <color name="dark_gray">#3e3e3e</color>
 </resources>
