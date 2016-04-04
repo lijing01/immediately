@@ -13,12 +13,12 @@ import okhttp3.RequestBody;
  * Created by Trace (Tapatalk) on 2016/3/27.
  */
 public class PostJsonRequest extends OkHttpRequest {
-	private static MediaType MEDIA_TYPE_PLAIN = MediaType.parse("text/json;charset=utf-8");
+	private static MediaType MEDIA_TYPE_PLAIN = MediaType.parse("application/json;charset=utf-8");
 
 	private String content;
 	private MediaType mediaType;
 
-	protected PostJsonRequest(String url, Object tag, Map<String, String> params, Map<String, String> headers) {
+	public PostJsonRequest(String url, Object tag, Map<String, String> params, Map<String, String> headers,String content) {
 		super(url, tag, params, headers);
 		this.content = content;
 		this.mediaType = mediaType;

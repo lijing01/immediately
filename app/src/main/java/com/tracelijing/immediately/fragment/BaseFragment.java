@@ -23,6 +23,8 @@ public class BaseFragment extends Fragment {
 		super.onDestroy();
 
 		RefWatcher refWatcher = MyApplication.getRefWatcher(getActivity());
-		refWatcher.watch(this);
+		if(refWatcher != null) {
+			refWatcher.watch(this);
+		}
 	}
 }
