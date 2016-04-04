@@ -4,4 +4,6 @@
     <string name="my_message">我的消息</string>
     <string name="hot_message">热门消息</string>
     <string name="find_theme">发现主题</string>
+
+    <string name="dummy_content">SPLASH\nCONTENT</string>
 </resources>

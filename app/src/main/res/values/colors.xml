@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#FFFFEF</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FF4081</color>
     <color name="yellow">#ffff00</color>
     <color name="diver_line">#808080</color>
     <color name="yellow1">#ff9900</color>
     <color name="dark_gray">#3e3e3e</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>

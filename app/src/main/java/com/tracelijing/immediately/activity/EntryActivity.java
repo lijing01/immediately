@@ -67,7 +67,7 @@ public class EntryActivity extends AppCompatActivity implements View.OnClickList
 		viewPager.setCurrentItem(position, false);
 		RadioButton select = (RadioButton) radioGroup.getChildAt(position);
 		select.setTextColor(getResources().getColor(
-				R.color.yellow));
+				R.color.black_overlay));
 	}
 
 	protected void init() {

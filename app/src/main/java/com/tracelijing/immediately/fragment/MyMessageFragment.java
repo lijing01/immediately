@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tracelijing.immediately.R;
-import com.tracelijing.immediately.action.UserLoginAction;
+import com.tracelijing.immediately.action.GetUserMessageListAction;
 
 import java.util.HashMap;
 
@@ -30,37 +30,19 @@ public class MyMessageFragment extends BaseFragment {
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		mActivity = getActivity();
-//		HashMap<String,String> params = new HashMap<>();
-//		params.put("limit","25");
-//		GetUserMessageListAction getUserMessageListAction = new GetUserMessageListAction(mActivity, new GetUserMessageListAction.IGetUerMessageCallback() {
-//			@Override
-//			public void getMessageSuccessBack() {
-//
-//			}
-//
-//			@Override
-//			public void getMessageErrorBack() {
-//
-//			}
-//		});
-//		getUserMessageListAction.call(params);
-
-		UserLoginAction userLoginAction = new UserLoginAction(mActivity, new UserLoginAction.IUserLoginCallback() {
+		HashMap<String,String> params = new HashMap<>();
+		params.put("limit","25");
+		GetUserMessageListAction getUserMessageListAction = new GetUserMessageListAction(mActivity, new GetUserMessageListAction.IGetUerMessageCallback() {
 			@Override
-			public void loginSuccessBack() {
+			public void getMessageSuccessBack() {
 
 			}
 
 			@Override
-			public void loginErrorBack() {
+			public void getMessageErrorBack() {
 
 			}
 		});
-		HashMap<String,String> params = new HashMap<>();
-		params.put("username","7203c6f7-b16a-42f5-9905-10a412c98219");
-		params.put("password","123");
-		userLoginAction.call(params);
-
-
+		getUserMessageListAction.call(params);
 	}
 }
