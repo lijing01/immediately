@@ -23,7 +23,7 @@ public class OkCommonHeaderTool {
 			hashMap.put("App-BuildNo", "117");
 			hashMap.put("App-Version", "2.4.0.2");
 			hashMap.put("Host:", "app.jike.ruguoapp.com");
-			hashMap.put("Accept-Encoding", "gzip");
+//			hashMap.put("Accept-Encoding", "gzip");
 		}
 		return hashMap;
 	}

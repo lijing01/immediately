@@ -13,7 +13,9 @@ public abstract class OkJsonCallback extends Callback<JSONObject> {
 	@Override
 	public JSONObject parseNetworkResponse(Response response) throws Exception
 	{
-		return new JSONObject(response.body().string());
+		String resultStr = response.body().string();
+		JSONObject resultJ = new JSONObject(resultStr);
+		return resultJ;
 	}
 
 }
