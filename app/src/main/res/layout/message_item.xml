@@ -4,7 +4,7 @@
                                     android:layout_height="wrap_content"
                                     android:clickable="true"
                                     android:foreground="?android:attr/selectableItemBackground"
-                                    android:layout_marginBottom="8dp">
+                                    android:layout_marginBottom="@dimen/dimen_8">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,8 +16,8 @@
             android:layout_height="36dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginLeft="@dimen/dimen_24"
+            android:layout_marginTop="@dimen/dimen_24"
             android:background="@color/black_overlay"/>
 
         <TextView
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/avatar"
-            android:layout_marginLeft="12dp"
+            android:layout_marginLeft="@dimen/dimen_12"
             android:layout_toRightOf="@id/avatar"
             android:text="测试"/>
 
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/username"
-            android:layout_marginLeft="12dp"
+            android:layout_marginLeft="@dimen/dimen_12"
             android:layout_toRightOf="@id/avatar"
             android:text="4/12"/>
 
@@ -44,18 +44,18 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/avatar"
             android:layout_below="@id/avatar"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="12dp"
-            android:text="xxxxxxxxxxxxxxxxxxx"/>
+            android:layout_marginRight="@dimen/dimen_24"
+            android:layout_marginTop="@dimen/dimen_12"
+            />
 
         <TextView
             android:id="@+id/diver"
             android:layout_width="match_parent"
             android:layout_height="0.2dp"
             android:layout_below="@id/content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginLeft="@dimen/dimen_24"
+            android:layout_marginRight="@dimen/dimen_24"
+            android:layout_marginTop="@dimen/dimen_12"
             android:background="@color/dark_gray"/>
 
         <ImageView
@@ -63,9 +63,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/diver"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="@dimen/dimen_24"
+            android:layout_marginTop="@dimen/dimen_12"
+            android:layout_marginBottom="@dimen/dimen_12"
             android:src="@mipmap/ic_share"/>
         <ImageView
             android:id="@+id/like"
@@ -73,9 +73,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/diver"
             android:layout_toRightOf="@id/share"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginTop="@dimen/dimen_12"
+            android:layout_marginBottom="@dimen/dimen_12"
+            android:layout_marginLeft="@dimen/dimen_16"
             android:src="@mipmap/ic_like_border"/>
         <TextView
             android:id="@+id/like_count"
@@ -83,9 +83,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/diver"
             android:layout_toRightOf="@id/like"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginTop="@dimen/dimen_12"
+            android:layout_marginBottom="@dimen/dimen_12"
+            android:layout_marginLeft="@dimen/dimen_8"
             android:text="12"/>
 
     </RelativeLayout>
