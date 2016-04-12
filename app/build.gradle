@@ -71,7 +71,7 @@ android {
             def intoFile = "D:\\immediateRelease"
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 //这里修改apk文件名
-                def fileName = "immediatel-${defaultConfig.versionCode}-${releaseTime()}.apk"
+                def fileName = "immediatel-${defaultConfig.versionCode}}.apk"
                 output.outputFile = new File(intoFile, fileName)
             }
 
@@ -103,4 +103,5 @@ dependencies {
     compile 'com.zhy:okhttputils:2.3.8'
     compile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3.1'
     compile 'com.android.support:support-v4:23.2.1'
+    compile 'com.android.support:cardview-v7:23.2.1'
 }

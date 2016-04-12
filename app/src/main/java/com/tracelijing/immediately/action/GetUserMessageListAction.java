@@ -57,7 +57,7 @@ public class GetUserMessageListAction {
 
 				}
 
-				iGetUerMessageCallback.getMessageSuccessBack();
+				iGetUerMessageCallback.getMessageSuccessBack(messageInfos);
 			}
 
 			@Override
@@ -69,7 +69,7 @@ public class GetUserMessageListAction {
 
 
 	public interface IGetUerMessageCallback {
-		void getMessageSuccessBack();
+		void getMessageSuccessBack(ArrayList<MessageInfo> messageInfos);
 		void getMessageErrorBack();
 	}
 
