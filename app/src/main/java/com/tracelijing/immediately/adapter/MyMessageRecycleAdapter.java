@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.tracelijing.immediately.R;
 import com.tracelijing.immediately.modle.MessageInfo;
+import com.tracelijing.immediately.widget.GridPicLayout;
 import com.tracelijing.tlibrary.ViewUtil;
 
 import java.util.ArrayList;
@@ -45,6 +46,20 @@ public class MyMessageRecycleAdapter extends RecyclerView.Adapter<RecyclerView.V
 		messageViewHolder.username.setText(messageInfo.getMessagePrefix());
 		messageViewHolder.time.setText(messageInfo.getUpdatedAt());
 		messageViewHolder.content.setText(messageInfo.getContent());
+		if(messageInfo.getPictureUrls().size()>0){
+			if(messageViewHolder.images.getTag() == position){
+				messageViewHolder.images.setVisibility(View.VISIBLE);
+				messageViewHolder.images.setPictureInfos((ArrayList<MessageInfo.PictureInfo>) messageInfo.getPictureUrls());
+				messageViewHolder.images.setTag(position);
+			}else{
+				messageViewHolder.images.setVisibility(View.VISIBLE);
+				messageViewHolder.images.setPictureInfos((ArrayList<MessageInfo.PictureInfo>) messageInfo.getPictureUrls());
+				messageViewHolder.images.setTag(position);
+			}
+		}else{
+			messageViewHolder.images.setVisibility(View.GONE);
+			messageViewHolder.images.setTag(position);
+		}
 	}
 
 	@Override
@@ -55,12 +70,14 @@ public class MyMessageRecycleAdapter extends RecyclerView.Adapter<RecyclerView.V
 	public class MessageViewHolder extends  RecyclerView.ViewHolder{
 		public ImageView imageView;
 		public TextView username,time,content;
+		public GridPicLayout images;
 		public MessageViewHolder(View itemView) {
 			super(itemView);
 			this.imageView = ViewUtil.$(itemView,R.id.avatar);
 			this.username = ViewUtil.$(itemView,R.id.username);
 			this.time = ViewUtil.$(itemView,R.id.time);
 			this.content = ViewUtil.$(itemView,R.id.content);
+			this.images = ViewUtil.$(itemView,R.id.imgs);
 		}
 	}
 }

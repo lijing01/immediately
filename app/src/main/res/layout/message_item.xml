@@ -47,12 +47,24 @@
             android:layout_marginRight="@dimen/dimen_24"
             android:layout_marginTop="@dimen/dimen_12"
             />
+        <com.tracelijing.immediately.widget.GridPicLayout
+            android:id="@+id/imgs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/content"
+            android:layout_marginLeft="@dimen/dimen_24"
+            android:layout_marginRight="@dimen/dimen_24"
+            android:layout_marginTop="@dimen/dimen_12"
+            android:visibility="gone">
+
+        </com.tracelijing.immediately.widget.GridPicLayout>
 
         <TextView
             android:id="@+id/diver"
             android:layout_width="match_parent"
             android:layout_height="0.2dp"
-            android:layout_below="@id/content"
+            android:layout_below="@id/imgs"
+            android:layout_alignWithParentIfMissing="true"
             android:layout_marginLeft="@dimen/dimen_24"
             android:layout_marginRight="@dimen/dimen_24"
             android:layout_marginTop="@dimen/dimen_12"

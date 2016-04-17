@@ -1,11 +1,14 @@
 package com.tracelijing.immediately.widget;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.tracelijing.immediately.R;
 import com.tracelijing.immediately.modle.MessageInfo;
@@ -26,7 +29,7 @@ public class GridPicLayout extends ViewGroup {
 			{1, 3, 0}, {2, 3, 0}, {3, 3, 0},
 			{1, 3, 3}, {2, 3, 3}, {3, 3, 3}};
 	private List<MessageInfo.PictureInfo> pictureInfos = new ArrayList<>();
-	private List<View> imageViews = new ArrayList<>();
+	private List<RelativeLayout> imageViews = new ArrayList<>();
 	/**
 	 * view 长宽比
 	 **/
@@ -62,22 +65,54 @@ public class GridPicLayout extends ViewGroup {
 		diverWidth = (int) mContext.getResources().getDimension(R.dimen.dimen_8);
 		int m = 0;
 		for (int n = 0; n < 9; n++)
-			getCView();
-//		if (isInEditMode()) {
+			getCView(n);
+		if (isInEditMode()) {
 		ArrayList localArrayList = new ArrayList();
 		while (m < 7) {
 			localArrayList.add(new MessageInfo.PictureInfo("test string for Edit Mode"));
 			m++;
 		}
 		setPictureInfos(localArrayList);
-//		}
-		setBackgroundResource(R.color.black_overlay);
+		}
 	}
 
 
-	private void getCView() {
-		View localView1 = new ImageView(mContext);
-		localView1.setBackgroundColor(getResources().getColor(R.color.yellow));
+	private void getCView(int n) {
+		RelativeLayout localView1 = (RelativeLayout) LayoutInflater.from(mContext).inflate(R.layout.image_layout,null,false);
+		/** for test **/
+		switch(n){
+			case 0:
+				localView1.setBackgroundColor(Color.BLACK);
+				break;
+			case 1:
+				localView1.setBackgroundColor(Color.BLUE);
+				break;
+			case 2:
+				localView1.setBackgroundColor(Color.GREEN);
+				break;
+			case 3:
+				localView1.setBackgroundColor(Color.RED);
+				break;
+			case 4:
+				localView1.setBackgroundColor(Color.YELLOW);
+				break;
+			case 5:
+				localView1.setBackgroundColor(Color.CYAN);
+				break;
+			case 6:
+				localView1.setBackgroundColor(Color.GRAY);
+				break;
+			case 7:
+				localView1.setBackgroundColor(Color.DKGRAY);
+				break;
+			case 8:
+				localView1.setBackgroundColor(Color.MAGENTA);
+				break;
+		}
+		ImageView gifIcon = (ImageView) localView1.findViewById(R.id.gif_btn);
+		RelativeLayout.LayoutParams p = ((RelativeLayout.LayoutParams)gifIcon.getLayoutParams());
+		p.addRule(RelativeLayout.CENTER_IN_PARENT);
+		gifIcon.setLayoutParams(p);
 		this.imageViews.add(localView1);
 		addView(localView1);
 	}
@@ -91,7 +126,7 @@ public class GridPicLayout extends ViewGroup {
 		int[] arrayOfInt = i[(m - 1)];
 		int n=0;
 		while (n<m){
-			int w1,h1,w2,h2;
+			int w1=0,h1=0,w2=0,h2=0;
 			int line = j[n][0];
 			int row = j[n][1];
 			if(line == 0){
@@ -113,17 +148,22 @@ public class GridPicLayout extends ViewGroup {
 						h1 = thereImageWidth;
 
 				}
-				((ImageView) imageViews.get(n)).measure(w1, h1);
+				((RelativeLayout) imageViews.get(n)).measure(w1, h1);
 				int cl = (w1+diverWidth)*row;
-				((ImageView) imageViews.get(n)).layout(cl,0,cl+w1,h1);
+				int cr = cl+w1;
+				((RelativeLayout) imageViews.get(n)).layout(cl,0,cr,h1);
+				Log.v("lijing", "image " + n + " cl=" + cl + "& cr=" + cr);
 				n++;
 			}else{
 				w2 = thereImageWidth;
 				h2 = thereImageWidth;
-				((ImageView)imageViews.get(n)).measure(w2,h2);
+				((RelativeLayout)imageViews.get(n)).measure(w2,h2);
 				int cl = (w2+diverWidth)*row;
+				int cr = cl+w2;
 				int ct = getFirstRowHeight()+(diverWidth)*line + thereImageWidth*(line-1);
-				((ImageView) imageViews.get(n)).layout(cl,ct,cl+w2,ct+h2);
+				int cb = ct+h2;
+				((RelativeLayout) imageViews.get(n)).layout(cl,ct,cr,ct+h2);
+				Log.v("lijing", "image " + n + " cl=" + cl + "& cr=" + cr+ " ct=" + ct + "& cb=" + cb);
 				n++;
 			}
 		}
@@ -172,14 +212,14 @@ public class GridPicLayout extends ViewGroup {
 
 				}
 
-				((ImageView) imageViews.get(n)).measure(w1, h1);
+				((RelativeLayout) imageViews.get(n)).measure(w1, h1);
 				n++;
-				Log.v("trace", "image " + n + " w=" + w1 + "& h=" + h1);
+				Log.v("lijing", "image " + n + " w=" + w1 + "& h=" + h1);
 			}else{
 				w2 = thereImageWidth;
 				h2 = thereImageWidth;
-				((ImageView)imageViews.get(n)).measure(w2,h2);
-				Log.v("trace","image "+ n +" w="+w2+"& h="+h2);
+				((RelativeLayout)imageViews.get(n)).measure(w2,h2);
+				Log.v("lijing","image "+ n +" w="+w2+"& h="+h2);
 				n++;
 			}
 		}
@@ -224,11 +264,9 @@ public class GridPicLayout extends ViewGroup {
 	 * @param pInfos
 	 */
 	public void setPictureInfos(ArrayList<MessageInfo.PictureInfo> pInfos) {
-		this.pictureInfos = pInfos;
 		if (pInfos.isEmpty()) {
 			return;
 		}
-		if (pInfos.size() != this.imageViews.size()) {
 
 			int n = 0;
 			if (n < Math.min(pInfos.size(), 9)) {
@@ -248,11 +286,18 @@ public class GridPicLayout extends ViewGroup {
 				}
 			}
 			requestLayout();
-		}
 		if ((!this.pictureInfos.containsAll(pInfos)) || (!pInfos.containsAll(this.pictureInfos))) {
 			this.pictureInfos = pInfos;
+			Log.v("lijing","images size is "+ pictureInfos.size());
+		}else{
+			Log.v("lijing","images contaions");
 		}
 
+	}
+
+	@Override
+	protected LayoutParams generateLayoutParams(LayoutParams p) {
+		return new MarginLayoutParams(p);
 	}
 
 	public interface IImageOnClickListener {
