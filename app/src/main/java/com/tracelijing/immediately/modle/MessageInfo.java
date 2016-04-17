@@ -191,6 +191,9 @@ public class MessageInfo {
 		private String format;
 		private int width;
 		private int height;
+		public PictureInfo(String thumbnailUrl){
+			this.thumbnailUrl = thumbnailUrl;
+		}
 
 		public String getThumbnailUrl() {
 			return thumbnailUrl;
