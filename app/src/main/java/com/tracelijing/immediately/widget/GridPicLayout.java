@@ -76,6 +76,16 @@ public class GridPicLayout extends ViewGroup {
 		}
 	}
 
+	public void checkRecyclerStatus(){
+		int n = getPicSize();
+		for(int i=0;i<n; i++){
+			imageViews.get(i).setVisibility(View.VISIBLE);
+		}
+		for(int k=n;k<9;k++){
+			imageViews.get(k).setVisibility(View.GONE);
+		}
+	}
+
 
 	private void getCView(int n) {
 		RelativeLayout localView1 = (RelativeLayout) LayoutInflater.from(mContext).inflate(R.layout.image_layout,null,false);

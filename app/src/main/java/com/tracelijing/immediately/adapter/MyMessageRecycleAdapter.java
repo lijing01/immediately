@@ -46,17 +46,11 @@ public class MyMessageRecycleAdapter extends RecyclerView.Adapter<RecyclerView.V
 		messageViewHolder.username.setText(messageInfo.getMessagePrefix());
 		messageViewHolder.time.setText(messageInfo.getUpdatedAt());
 		messageViewHolder.content.setText(messageInfo.getContent());
-		if(messageInfo.getPictureUrls().size()>0){
-			if(messageViewHolder.images.getTag() == position){
-				messageViewHolder.images.setVisibility(View.VISIBLE);
-				messageViewHolder.images.setPictureInfos((ArrayList<MessageInfo.PictureInfo>) messageInfo.getPictureUrls());
-				messageViewHolder.images.setTag(position);
-			}else{
-				messageViewHolder.images.setVisibility(View.VISIBLE);
-				messageViewHolder.images.setPictureInfos((ArrayList<MessageInfo.PictureInfo>) messageInfo.getPictureUrls());
-				messageViewHolder.images.setTag(position);
-			}
-		}else{
+		if (messageInfo.getPictureUrls().size() > 0) {
+			messageViewHolder.images.setVisibility(View.VISIBLE);
+			messageViewHolder.images.setPictureInfos((ArrayList<MessageInfo.PictureInfo>) messageInfo.getPictureUrls());
+			messageViewHolder.images.checkRecyclerStatus();
+		} else {
 			messageViewHolder.images.setVisibility(View.GONE);
 			messageViewHolder.images.setTag(position);
 		}
