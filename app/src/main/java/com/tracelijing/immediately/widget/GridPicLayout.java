@@ -65,7 +65,7 @@ public class GridPicLayout extends ViewGroup {
 			getCView();
 //		if (isInEditMode()) {
 		ArrayList localArrayList = new ArrayList();
-		while (m < 4) {
+		while (m < 7) {
 			localArrayList.add(new MessageInfo.PictureInfo("test string for Edit Mode"));
 			m++;
 		}
@@ -84,42 +84,48 @@ public class GridPicLayout extends ViewGroup {
 
 	@Override
 	protected void onLayout(boolean changed, int l, int t, int r, int b) {
-		for (int i = 0; i < pictureInfos.size(); i++) {
-			switch (i) {
-				case 0:
-					ImageView view0 = (ImageView) imageViews.get(0);
-					int w = oneImageWidth;
-					int h = oneImageHeight;
-					view0.measure(w, h);
-					view0.layout(0, 0, w, h);
-					break;
-				case 1:
-					ImageView view1 = (ImageView) imageViews.get(1);
-					int w1 = thereImageWidth;
-					int h1 = thereImageWidth;
-					view1.measure(w1, h1);
-					view1.layout(0, oneImageHeight + diverWidth, w1, oneImageHeight + diverWidth + h1);
-					break;
+		Log.v("lijing","start to layout child view");
+		int m = getPicSize();
+		if (m == 0)
+			return;
+		int[] arrayOfInt = i[(m - 1)];
+		int n=0;
+		while (n<m){
+			int w1,h1,w2,h2;
+			int line = j[n][0];
+			int row = j[n][1];
+			if(line == 0){
+				switch (arrayOfInt[0]){
+					default:
+						w1 = 0;
+						h1 = 0;
+					case 1:
+						w1 = oneImageWidth;
+						h1 = oneImageHeight;
+						break;
+					case 2:
+						w1 = twoImageWidth;
+						h1 = twoImageWidth;
 
-				case 2:
-					ImageView view2 = (ImageView) imageViews.get(2);
-					int w2 = thereImageWidth;
-					int h2 = thereImageWidth;
-					view2.measure(w2, h2);
-					view2.layout((2 - 1) * (thereImageWidth + diverWidth), oneImageHeight + diverWidth,
-							w2 + (2 - 1) * (thereImageWidth + diverWidth), oneImageHeight + diverWidth + h2);
-					break;
-				case 3:
-					ImageView view3 = (ImageView) imageViews.get(3);
-					int w3 = thereImageWidth;
-					int h3 = thereImageWidth;
-					view3.measure(w3, h3);
-					view3.layout((3 - 1) * (thereImageWidth + diverWidth), oneImageHeight + diverWidth,
-							w3 + (3 - 1) * (thereImageWidth + diverWidth), oneImageHeight + diverWidth + h3);
-					break;
+						break;
+					case 3:
+						w1 = thereImageWidth;
+						h1 = thereImageWidth;
+
+				}
+				((ImageView) imageViews.get(n)).measure(w1, h1);
+				int cl = (w1+diverWidth)*row;
+				((ImageView) imageViews.get(n)).layout(cl,0,cl+w1,h1);
+				n++;
+			}else{
+				w2 = thereImageWidth;
+				h2 = thereImageWidth;
+				((ImageView)imageViews.get(n)).measure(w2,h2);
+				int cl = (w2+diverWidth)*row;
+				int ct = getFirstRowHeight()+(diverWidth)*line + thereImageWidth*(line-1);
+				((ImageView) imageViews.get(n)).layout(cl,ct,cl+w2,ct+h2);
+				n++;
 			}
-
-
 		}
 	}
 
@@ -153,8 +159,8 @@ public class GridPicLayout extends ViewGroup {
 						w1 = 0;
 						h1 = 0;
 					case 1:
-						w1 = oneImageHeight;
-						h1 = oneImageWidth;
+						w1 = oneImageWidth;
+						h1 = oneImageHeight;
 						break;
 					case 2:
 						w1 = twoImageWidth;
@@ -172,7 +178,7 @@ public class GridPicLayout extends ViewGroup {
 			}else{
 				w2 = thereImageWidth;
 				h2 = thereImageWidth;
-				((ImageView)imageViews.get(n)).measure(w2,w2);
+				((ImageView)imageViews.get(n)).measure(w2,h2);
 				Log.v("trace","image "+ n +" w="+w2+"& h="+h2);
 				n++;
 			}
@@ -187,7 +193,7 @@ public class GridPicLayout extends ViewGroup {
 			return 0;
 		int m = i[(-1 + getPicSize())][0];
 		if (m == 1)
-			return oneImageWidth;
+			return oneImageHeight;
 		if (m == 2)
 			return twoImageWidth;
 		return thereImageWidth;
