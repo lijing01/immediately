@@ -29,7 +29,7 @@ public class GridPicLayout extends ViewGroup {
 			{1, 3, 0}, {2, 3, 0}, {3, 3, 0},
 			{1, 3, 3}, {2, 3, 3}, {3, 3, 3}};
 	private List<MessageInfo.PictureInfo> pictureInfos = new ArrayList<>();
-	private List<RelativeLayout> imageViews = new ArrayList<>();
+	private List<RelativeLayout> iViews = new ArrayList<>();
 	/**
 	 * view 长宽比
 	 **/
@@ -79,51 +79,55 @@ public class GridPicLayout extends ViewGroup {
 	public void checkRecyclerStatus(){
 		int n = getPicSize();
 		for(int i=0;i<n; i++){
-			imageViews.get(i).setVisibility(View.VISIBLE);
+			iViews.get(i).setVisibility(View.VISIBLE);
 		}
 		for(int k=n;k<9;k++){
-			imageViews.get(k).setVisibility(View.GONE);
+			iViews.get(k).setVisibility(View.GONE);
 		}
 	}
 
 
 	private void getCView(int n) {
 		RelativeLayout localView1 = (RelativeLayout) LayoutInflater.from(mContext).inflate(R.layout.image_layout,null,false);
+		ImageView imageView = (ImageView)localView1.findViewById(R.id.img);
+		RelativeLayout.LayoutParams p1 = ((RelativeLayout.LayoutParams)imageView.getLayoutParams());
+		p1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+		imageView.setLayoutParams(p1);
 		/** for test **/
 		switch(n){
 			case 0:
-				localView1.setBackgroundColor(Color.BLACK);
+				imageView.setBackgroundColor(Color.BLACK);
 				break;
 			case 1:
-				localView1.setBackgroundColor(Color.BLUE);
+				imageView.setBackgroundColor(Color.BLUE);
 				break;
 			case 2:
-				localView1.setBackgroundColor(Color.GREEN);
+				imageView.setBackgroundColor(Color.GREEN);
 				break;
 			case 3:
-				localView1.setBackgroundColor(Color.RED);
+				imageView.setBackgroundColor(Color.RED);
 				break;
 			case 4:
-				localView1.setBackgroundColor(Color.YELLOW);
+				imageView.setBackgroundColor(Color.YELLOW);
 				break;
 			case 5:
-				localView1.setBackgroundColor(Color.CYAN);
+				imageView.setBackgroundColor(Color.CYAN);
 				break;
 			case 6:
-				localView1.setBackgroundColor(Color.GRAY);
+				imageView.setBackgroundColor(Color.GRAY);
 				break;
 			case 7:
-				localView1.setBackgroundColor(Color.DKGRAY);
+				imageView.setBackgroundColor(Color.DKGRAY);
 				break;
 			case 8:
-				localView1.setBackgroundColor(Color.MAGENTA);
+				imageView.setBackgroundColor(Color.MAGENTA);
 				break;
 		}
 		ImageView gifIcon = (ImageView) localView1.findViewById(R.id.gif_btn);
 		RelativeLayout.LayoutParams p = ((RelativeLayout.LayoutParams)gifIcon.getLayoutParams());
 		p.addRule(RelativeLayout.CENTER_IN_PARENT);
 		gifIcon.setLayoutParams(p);
-		this.imageViews.add(localView1);
+		this.iViews.add(localView1);
 		addView(localView1);
 	}
 
@@ -158,21 +162,21 @@ public class GridPicLayout extends ViewGroup {
 						h1 = thereImageWidth;
 
 				}
-				((RelativeLayout) imageViews.get(n)).measure(w1, h1);
+//				iViews.get(n).measure(w1, h1);
 				int cl = (w1+diverWidth)*row;
 				int cr = cl+w1;
-				((RelativeLayout) imageViews.get(n)).layout(cl,0,cr,h1);
+				iViews.get(n).layout(cl,0,cr,h1);
 				Log.v("lijing", "image " + n + " cl=" + cl + "& cr=" + cr);
 				n++;
 			}else{
 				w2 = thereImageWidth;
 				h2 = thereImageWidth;
-				((RelativeLayout)imageViews.get(n)).measure(w2,h2);
+//				iViews.get(n).measure(w2,h2);
 				int cl = (w2+diverWidth)*row;
 				int cr = cl+w2;
 				int ct = getFirstRowHeight()+(diverWidth)*line + thereImageWidth*(line-1);
 				int cb = ct+h2;
-				((RelativeLayout) imageViews.get(n)).layout(cl,ct,cr,ct+h2);
+				iViews.get(n).layout(cl,ct,cr,ct+h2);
 				Log.v("lijing", "image " + n + " cl=" + cl + "& cr=" + cr+ " ct=" + ct + "& cb=" + cb);
 				n++;
 			}
@@ -189,7 +193,9 @@ public class GridPicLayout extends ViewGroup {
 		this.thereImageWidth = ((this.oneImageWidth - 2 * this.diverWidth) / 3);
 		getChildViewSize();
 		int m = getLayoutHeight();
-		setMeasuredDimension(this.oneImageWidth, m);
+//		setMeasuredDimension(this.oneImageWidth, m);
+		setMeasuredDimension(resolveSize(this.oneImageHeight, widthMeasureSpec),
+				resolveSize(m, heightMeasureSpec));
 	}
 
 	private void getChildViewSize() {
@@ -222,13 +228,13 @@ public class GridPicLayout extends ViewGroup {
 
 				}
 
-				((RelativeLayout) imageViews.get(n)).measure(w1, h1);
+				iViews.get(n).measure(w1, h1);
 				n++;
 				Log.v("lijing", "image " + n + " w=" + w1 + "& h=" + h1);
 			}else{
 				w2 = thereImageWidth;
 				h2 = thereImageWidth;
-				((RelativeLayout)imageViews.get(n)).measure(w2,h2);
+				iViews.get(n).measure(w2,h2);
 				Log.v("lijing","image "+ n +" w="+w2+"& h="+h2);
 				n++;
 			}
@@ -305,10 +311,11 @@ public class GridPicLayout extends ViewGroup {
 
 	}
 
-	@Override
-	protected LayoutParams generateLayoutParams(LayoutParams p) {
-		return new MarginLayoutParams(p);
-	}
+//	@Override
+//	public LayoutParams generateLayoutParams(AttributeSet attrs) {
+//		return new RelativeLayout.LayoutParams(getContext(), attrs);
+//	}
+
 
 	public interface IImageOnClickListener {
 		void onClick(View v, int position);
