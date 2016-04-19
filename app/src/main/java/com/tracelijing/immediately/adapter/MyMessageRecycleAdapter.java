@@ -5,9 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.request.ImageRequest;
 import com.tracelijing.immediately.R;
 import com.tracelijing.immediately.modle.MessageInfo;
 import com.tracelijing.immediately.widget.GridPicLayout;
@@ -54,6 +57,12 @@ public class MyMessageRecycleAdapter extends RecyclerView.Adapter<RecyclerView.V
 			messageViewHolder.images.setVisibility(View.GONE);
 			messageViewHolder.images.setTag(position);
 		}
+
+		DraweeController controller = Fresco.newDraweeControllerBuilder()
+				.setImageRequest(ImageRequest.fromUri(messageInfo.getTopicPicUrl()))
+				.setOldController(messageViewHolder.imageView.getController())
+				.build();
+		messageViewHolder.imageView.setController(controller);
 	}
 
 	@Override
@@ -62,7 +71,7 @@ public class MyMessageRecycleAdapter extends RecyclerView.Adapter<RecyclerView.V
 	}
 
 	public class MessageViewHolder extends  RecyclerView.ViewHolder{
-		public ImageView imageView;
+		public SimpleDraweeView imageView;
 		public TextView username,time,content;
 		public GridPicLayout images;
 		public MessageViewHolder(View itemView) {

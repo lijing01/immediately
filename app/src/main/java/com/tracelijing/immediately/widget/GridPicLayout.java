@@ -1,7 +1,6 @@
 package com.tracelijing.immediately.widget;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.request.ImageRequest;
 import com.tracelijing.immediately.R;
 import com.tracelijing.immediately.modle.MessageInfo;
 
@@ -62,7 +65,7 @@ public class GridPicLayout extends ViewGroup {
 
 
 	private void init() {
-		diverWidth = (int) mContext.getResources().getDimension(R.dimen.dimen_8);
+		diverWidth = (int) mContext.getResources().getDimension(R.dimen.dimen_4);
 		int m = 0;
 		for (int n = 0; n < 9; n++)
 			getCView(n);
@@ -80,6 +83,18 @@ public class GridPicLayout extends ViewGroup {
 		int n = getPicSize();
 		for(int i=0;i<n; i++){
 			iViews.get(i).setVisibility(View.VISIBLE);
+			SimpleDraweeView simpleDraweeView = (SimpleDraweeView) iViews.get(i).getChildAt(0);
+			DraweeController controller = Fresco.newDraweeControllerBuilder()
+					.setLowResImageRequest(ImageRequest.fromUri(pictureInfos.get(i).getThumbnailUrl()))
+					.setImageRequest(ImageRequest.fromUri(pictureInfos.get(i).getMiddlePicUrl()))
+					.setOldController(simpleDraweeView.getController())
+					.build();
+			simpleDraweeView.setController(controller);
+			if("gif".equals(pictureInfos.get(i).getFormat())){
+				iViews.get(i).getChildAt(1).setVisibility(View.VISIBLE);
+			}else{
+				iViews.get(i).getChildAt(1).setVisibility(View.GONE);
+			}
 		}
 		for(int k=n;k<9;k++){
 			iViews.get(k).setVisibility(View.GONE);
@@ -89,11 +104,9 @@ public class GridPicLayout extends ViewGroup {
 
 	private void getCView(int n) {
 		RelativeLayout localView1 = (RelativeLayout) LayoutInflater.from(mContext).inflate(R.layout.image_layout,null,false);
-		ImageView imageView = (ImageView)localView1.findViewById(R.id.img);
-		RelativeLayout.LayoutParams p1 = ((RelativeLayout.LayoutParams)imageView.getLayoutParams());
-		p1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-		imageView.setLayoutParams(p1);
-		/** for test **/
+		SimpleDraweeView imageView = (SimpleDraweeView)localView1.findViewById(R.id.img);
+
+	/*	*//** for test **//*
 		switch(n){
 			case 0:
 				imageView.setBackgroundColor(Color.BLACK);
@@ -122,7 +135,7 @@ public class GridPicLayout extends ViewGroup {
 			case 8:
 				imageView.setBackgroundColor(Color.MAGENTA);
 				break;
-		}
+		}*/
 		ImageView gifIcon = (ImageView) localView1.findViewById(R.id.gif_btn);
 		RelativeLayout.LayoutParams p = ((RelativeLayout.LayoutParams)gifIcon.getLayoutParams());
 		p.addRule(RelativeLayout.CENTER_IN_PARENT);
@@ -166,6 +179,10 @@ public class GridPicLayout extends ViewGroup {
 				int cl = (w1+diverWidth)*row;
 				int cr = cl+w1;
 				iViews.get(n).layout(cl,0,cr,h1);
+				iViews.get(n).getChildAt(0).layout(0,0,w1,h1);
+				int gifw = iViews.get(n).getChildAt(1).getWidth();
+				int gifh = iViews.get(n).getChildAt(1).getHeight();
+				iViews.get(n).getChildAt(1).layout((w1-gifw)/2,(h1-gifh)/2,(w1+gifw)/2,(h1+gifh)/2);
 				Log.v("lijing", "image " + n + " cl=" + cl + "& cr=" + cr);
 				n++;
 			}else{
@@ -177,6 +194,10 @@ public class GridPicLayout extends ViewGroup {
 				int ct = getFirstRowHeight()+(diverWidth)*line + thereImageWidth*(line-1);
 				int cb = ct+h2;
 				iViews.get(n).layout(cl,ct,cr,ct+h2);
+				iViews.get(n).getChildAt(0).layout(0,0,w2,h2);
+				int gifw2 = iViews.get(n).getChildAt(1).getWidth();
+				int gifh2 = iViews.get(n).getChildAt(1).getHeight();
+				iViews.get(n).getChildAt(1).layout((w2-gifw2)/2,(h2-gifh2)/2,(w2+gifw2)/2,(h2+gifh2)/2);
 				Log.v("lijing", "image " + n + " cl=" + cl + "& cr=" + cr+ " ct=" + ct + "& cb=" + cb);
 				n++;
 			}
@@ -311,10 +332,14 @@ public class GridPicLayout extends ViewGroup {
 
 	}
 
-//	@Override
-//	public LayoutParams generateLayoutParams(AttributeSet attrs) {
-//		return new RelativeLayout.LayoutParams(getContext(), attrs);
-//	}
+	@Override
+	public LayoutParams generateLayoutParams(AttributeSet attrs) {
+		return new MarginLayoutParams(getContext(), attrs);
+	}
+
+	public void setOnImageClickListener(IImageOnClickListener imageClickListener,int p){
+		imageClickListener.onClick(this,p);
+	}
 
 
 	public interface IImageOnClickListener {

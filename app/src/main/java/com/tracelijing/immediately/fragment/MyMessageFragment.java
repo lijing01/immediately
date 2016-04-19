@@ -40,7 +40,7 @@ public class MyMessageFragment extends BaseFragment {
 		super.onActivityCreated(savedInstanceState);
 		mActivity = getActivity();
 		HashMap<String,String> params = new HashMap<>();
-		params.put("limit","25");
+		params.put("limit","100");
 		GetUserMessageListAction getUserMessageListAction = new GetUserMessageListAction(mActivity, new GetUserMessageListAction.IGetUerMessageCallback() {
 			@Override
 			public void getMessageSuccessBack(ArrayList<MessageInfo> messageInfos) {

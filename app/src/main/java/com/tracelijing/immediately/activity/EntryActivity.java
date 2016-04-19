@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.tracelijing.immediately.R;
 import com.tracelijing.immediately.fragment.FindArticleFragment;
 import com.tracelijing.immediately.fragment.HotMessageFragment;
@@ -36,6 +37,7 @@ public class EntryActivity extends AppCompatActivity implements View.OnClickList
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Fresco.initialize(EntryActivity.this);
 		setContentView(R.layout.activity_entry);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
