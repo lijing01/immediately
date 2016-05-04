@@ -21,7 +21,8 @@
             android:layout_marginTop="@dimen/dimen_24"
             android:background="@color/black_overlay"
             fresco:roundedCornerRadius="4dp"
-            fresco:roundWithOverlayColor="@color/colorPrimary"/>
+            fresco:roundWithOverlayColor="@color/colorPrimary"
+            fresco:overlayImage="@color/dark_gray_10"/>
 
         <TextView
             android:id="@+id/username"

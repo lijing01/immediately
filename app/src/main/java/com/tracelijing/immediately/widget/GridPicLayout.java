@@ -86,8 +86,9 @@ public class GridPicLayout extends ViewGroup {
 			SimpleDraweeView simpleDraweeView = (SimpleDraweeView) iViews.get(i).getChildAt(0);
 			DraweeController controller = Fresco.newDraweeControllerBuilder()
 					.setLowResImageRequest(ImageRequest.fromUri(pictureInfos.get(i).getThumbnailUrl()))
-					.setImageRequest(ImageRequest.fromUri(pictureInfos.get(i).getMiddlePicUrl()))
+					.setImageRequest(ImageRequest.fromUri(pictureInfos.get(i).getPicUrl()))
 					.setOldController(simpleDraweeView.getController())
+					.setAutoPlayAnimations(true)
 					.build();
 			simpleDraweeView.setController(controller);
 			if("gif".equals(pictureInfos.get(i).getFormat())){
