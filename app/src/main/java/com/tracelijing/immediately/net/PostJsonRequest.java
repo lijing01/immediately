@@ -18,8 +18,8 @@ public class PostJsonRequest extends OkHttpRequest {
 	private String content;
 	private MediaType mediaType;
 
-	public PostJsonRequest(String url, Object tag, Map<String, String> params, Map<String, String> headers,String content) {
-		super(url, tag, params, headers);
+	public PostJsonRequest(String url, Object tag, Map<String, String> params, Map<String, String> headers,String content,int id) {
+		super(url, tag, params, headers,id);
 		this.content = content;
 		this.mediaType = mediaType;
 
