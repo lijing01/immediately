@@ -10,14 +10,7 @@ import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONObject;
 
-import java.security.KeyStore;
-import java.security.SecureRandom;
 import java.util.HashMap;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
 
 import okhttp3.Call;
 
@@ -35,42 +28,21 @@ public class OkHttpAction {
 
 	public void postJsonObjectAction(final String callUrl, final HashMap<String, String> params,
 									 final ActionCallBack callBack) {
-		try {
-			// Create a trust manager that does not validate certificate chains
+		OkHttpUtils.getInstance(OkHttpClientUtil.getInstance(mContext));
+		HashMap<String, String> headers = OkCommonHeaderTool.getCommentHeaders(mContext);
+		String content = OkCommonHeaderTool.hashMapToJson(params);
+		PostJsonRequest postJsonRequest = new PostJsonRequest(callUrl, URL_TAG, null, headers, content);
+		postJsonRequest.build().execute(new OkJsonCallback() {
+			@Override
+			public void onError(Call call, Exception e) {
+				callBack.actionErrorBack(call, e);
+			}
 
-			KeyStore trustStore;
-			org.apache.http.conn.ssl.SSLSocketFactory sf;
-			trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
-			SSLContext sslContext = SSLContext.getInstance("TLS");
-			TrustManager trustManager = new MyX509TrustManager(trustStore);
-			sslContext.init(null, new TrustManager[]{trustManager}, new SecureRandom());
-
-			OkHttpUtils.getInstance().getOkHttpClient().newBuilder()
-					.sslSocketFactory(sslContext.getSocketFactory())
-					.hostnameVerifier(new HostnameVerifier() {
-						@Override
-						public boolean verify(String hostname, SSLSession session) {
-							return true;
-						}
-					})
-					.cookieJar(new CookiesManager(mContext));
-			HashMap<String, String> headers = OkCommonHeaderTool.getCommentHeaders(mContext);
-			String content = OkCommonHeaderTool.hashMapToJson(params);
-			PostJsonRequest postJsonRequest = new PostJsonRequest(callUrl, URL_TAG, null, headers, content);
-			postJsonRequest.build().execute(new OkJsonCallback() {
-				@Override
-				public void onError(Call call, Exception e) {
-					callBack.actionErrorBack(call, e);
-				}
-
-				@Override
-				public void onResponse(JSONObject response) {
-					callBack.actionCallBack(response);
-				}
-			});
-		} catch (Exception e) {
-
-		}
+			@Override
+			public void onResponse(JSONObject response) {
+				callBack.actionCallBack(response);
+			}
+		});
 	}
 
 

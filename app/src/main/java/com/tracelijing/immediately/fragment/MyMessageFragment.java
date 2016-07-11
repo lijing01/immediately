@@ -53,6 +53,11 @@ public class MyMessageFragment extends BaseFragment {
 
 			}
 		});
+		ArrayList<MessageInfo> cMessageInfos = getUserMessageListAction.getMessageInfoFromCache();
+		if(cMessageInfos!=null && cMessageInfos.size()>0){
+			myMessageRecycleAdapter.setMessageInfos(cMessageInfos);
+			myMessageRecycleAdapter.notifyDataSetChanged();
+		}
 		getUserMessageListAction.call(params);
 
 		LinearLayoutManager mLayoutManager = new LinearLayoutManager(mActivity);
