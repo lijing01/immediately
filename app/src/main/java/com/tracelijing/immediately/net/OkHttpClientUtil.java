@@ -5,8 +5,6 @@ import android.content.Context;
 import com.zhy.http.okhttp.cookie.CookieJarImpl;
 import com.zhy.http.okhttp.cookie.store.MemoryCookieStore;
 
-import java.security.KeyStore;
-
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
@@ -24,13 +22,8 @@ public class OkHttpClientUtil {
 		if (mInstance == null) {
 			SSLContext sslContext = null;
 			try {
-				KeyStore trustStore;
-				org.apache.http.conn.ssl.SSLSocketFactory sf;
-
-				trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
-
 				sslContext = SSLContext.getInstance("TLS");
-				TrustManager trustManager = new MyX509TrustManager(trustStore);
+				TrustManager trustManager = new UnSafeTrustManager();
 				sslContext.init(null, new TrustManager[]{trustManager}, null);
 
 			} catch (Exception e) {
