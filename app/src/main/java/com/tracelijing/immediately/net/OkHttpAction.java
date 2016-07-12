@@ -6,7 +6,7 @@ package com.tracelijing.immediately.net;
 
 import android.content.Context;
 
-import com.tracelijing.immediately.MyApplication;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONObject;
 
@@ -28,26 +28,21 @@ public class OkHttpAction {
 
 	public void postJsonObjectAction(final String callUrl, final HashMap<String, String> params,
 									 final ActionCallBack callBack) {
-		try {
-			// Create a trust manager that does not validate certificate chains
-			MyApplication.getOkHttpClient();
-			HashMap<String, String> headers = OkCommonHeaderTool.getCommentHeaders(mContext);
-			String content = OkCommonHeaderTool.hashMapToJson(params);
-			PostJsonRequest postJsonRequest = new PostJsonRequest(callUrl, URL_TAG, null, headers, content,content.hashCode());
-			postJsonRequest.build().execute(new OkJsonCallback() {
-				@Override
-				public void onError(Call call, Exception e, int id) {
-					callBack.actionErrorBack(call, e);
-				}
+		OkHttpUtils.initClient(OkHttpClientUtil.getInstance(mContext));
+		HashMap<String, String> headers = OkCommonHeaderTool.getCommentHeaders(mContext);
+		String content = OkCommonHeaderTool.hashMapToJson(params);
+		PostJsonRequest postJsonRequest = new PostJsonRequest(callUrl, URL_TAG, null, headers, content);
+		postJsonRequest.build().execute(new OkJsonCallback() {
+			@Override
+			public void onError(Call call, Exception e,int id) {
+				callBack.actionErrorBack(call, e);
+			}
 
-				@Override
-				public void onResponse(JSONObject response, int id) {
-					callBack.actionCallBack(response);
-				}
-			});
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			@Override
+			public void onResponse(JSONObject response,int id) {
+				callBack.actionCallBack(response);
+			}
+		});
 	}
 
 

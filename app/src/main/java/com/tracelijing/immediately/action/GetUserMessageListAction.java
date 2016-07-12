@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.tracelijing.immediately.cache.AppCacheManager;
 import com.tracelijing.immediately.modle.MessageInfo;
 import com.tracelijing.immediately.net.OkHttpAction;
 import com.tracelijing.immediately.utils.UrlManager;
@@ -27,6 +28,11 @@ public class GetUserMessageListAction {
 	public GetUserMessageListAction(Activity context, IGetUerMessageCallback getUerMessageCallback) {
 		this.mContext = context;
 		this.iGetUerMessageCallback = getUerMessageCallback;
+	}
+
+	public ArrayList<MessageInfo> getMessageInfoFromCache(){
+		ArrayList<MessageInfo> messageInfos = AppCacheManager.getMessageInfo(mContext);
+		return messageInfos;
 	}
 
 	public void call(HashMap<String, String> params) {
@@ -56,7 +62,7 @@ public class GetUserMessageListAction {
 					}
 
 				}
-
+				AppCacheManager.saveMessageListData(mContext,messageInfos);
 				iGetUerMessageCallback.getMessageSuccessBack(messageInfos);
 			}
 
