@@ -51,18 +51,19 @@ public class MyMessageRecycleAdapter extends RecyclerView.Adapter<RecyclerView.V
 		messageViewHolder.content.setText(messageInfo.getContent());
 		if (messageInfo.getPictureUrls().size() > 0) {
 			messageViewHolder.images.setVisibility(View.VISIBLE);
-			messageViewHolder.images.setPictureInfos((ArrayList<MessageInfo.PictureInfo>) messageInfo.getPictureUrls());
+			messageViewHolder.images.setPictureInfos((ArrayList<MessageInfo.PictureUrlsBean>) messageInfo.getPictureUrls());
 			messageViewHolder.images.checkRecyclerStatus();
 		} else {
 			messageViewHolder.images.setVisibility(View.GONE);
 			messageViewHolder.images.setTag(position);
 		}
-
-		DraweeController controller = Fresco.newDraweeControllerBuilder()
-				.setImageRequest(ImageRequest.fromUri(messageInfo.getTopicPicUrl()))
-				.setOldController(messageViewHolder.imageView.getController())
-				.build();
-		messageViewHolder.imageView.setController(controller);
+		if(messageInfo.getTopic()!=null) {
+			DraweeController controller = Fresco.newDraweeControllerBuilder()
+					.setImageRequest(ImageRequest.fromUri(messageInfo.getTopic().getThumbnailUrl()))
+					.setOldController(messageViewHolder.imageView.getController())
+					.build();
+			messageViewHolder.imageView.setController(controller);
+		}
 	}
 
 	@Override

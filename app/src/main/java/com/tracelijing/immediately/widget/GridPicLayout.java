@@ -31,7 +31,7 @@ public class GridPicLayout extends ViewGroup {
 	private static final int[][] i = {{1, 0, 0}, {2, 0, 0}, {3, 0, 0},
 			{1, 3, 0}, {2, 3, 0}, {3, 3, 0},
 			{1, 3, 3}, {2, 3, 3}, {3, 3, 3}};
-	private List<MessageInfo.PictureInfo> pictureInfos = new ArrayList<>();
+	private List<MessageInfo.PictureUrlsBean> pictureInfos = new ArrayList<>();
 	private List<RelativeLayout> iViews = new ArrayList<>();
 	/**
 	 * view 长宽比
@@ -69,14 +69,14 @@ public class GridPicLayout extends ViewGroup {
 		int m = 0;
 		for (int n = 0; n < 9; n++)
 			getCView(n);
-		if (isInEditMode()) {
-		ArrayList localArrayList = new ArrayList();
-		while (m < 7) {
-			localArrayList.add(new MessageInfo.PictureInfo("test string for Edit Mode"));
-			m++;
-		}
-		setPictureInfos(localArrayList);
-		}
+//		if (isInEditMode()) {
+//		ArrayList localArrayList = new ArrayList();
+//		while (m < 7) {
+//			localArrayList.add(new MessageInfo.PictureUrlsBean("test string for Edit Mode"));
+//			m++;
+//		}
+//		setPictureInfos(localArrayList);
+//		}
 	}
 
 	public void checkRecyclerStatus(){
@@ -301,7 +301,7 @@ public class GridPicLayout extends ViewGroup {
 	 *
 	 * @param pInfos
 	 */
-	public void setPictureInfos(ArrayList<MessageInfo.PictureInfo> pInfos) {
+	public void setPictureInfos(ArrayList<MessageInfo.PictureUrlsBean> pInfos) {
 		if (pInfos.isEmpty()) {
 			return;
 		}
