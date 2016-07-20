@@ -12,7 +12,7 @@
         android:layout_weight="1">
     </android.support.v4.view.ViewPager>
 
-    <View
+<!--    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/diver_line">
@@ -57,6 +57,6 @@
             android:gravity="center"
             android:text="@string/find_theme"
             android:textColor="@color/dark_gray"/>
-    </RadioGroup>
+    </RadioGroup>-->
 
 </LinearLayout>
