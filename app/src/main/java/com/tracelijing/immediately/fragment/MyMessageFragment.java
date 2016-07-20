@@ -14,6 +14,7 @@ import com.tracelijing.immediately.R;
 import com.tracelijing.immediately.action.GetUserMessageListAction;
 import com.tracelijing.immediately.adapter.MyMessageRecycleAdapter;
 import com.tracelijing.immediately.modle.MessageInfo;
+import com.tracelijing.immediately.utils.RecyclerViewOnScrollListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +27,7 @@ public class MyMessageFragment extends BaseFragment {
 	private SwipeRefreshLayout mSwipeRefreshLayout;
 	private RecyclerView mRecyclerView;
 	private MyMessageRecycleAdapter myMessageRecycleAdapter;
+	private int lastMessageId;
 
 	@Nullable
 	@Override
@@ -39,12 +41,33 @@ public class MyMessageFragment extends BaseFragment {
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		mActivity = getActivity();
+		getMessages();
+
+		LinearLayoutManager mLayoutManager = new LinearLayoutManager(mActivity);
+		mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+		mRecyclerView.setLayoutManager(mLayoutManager);
+		myMessageRecycleAdapter = new MyMessageRecycleAdapter(mActivity);
+		mRecyclerView.setAdapter(myMessageRecycleAdapter);
+		mRecyclerView.addOnScrollListener(new RecyclerViewOnScrollListener(mLayoutManager) {
+			@Override
+			public void onLoadMore(int current_page) {
+				getMessages();
+			}
+		});
+
+	}
+
+	private void getMessages(){
 		HashMap<String,String> params = new HashMap<>();
-		params.put("limit","100");
+		params.put("limit","25");
+		if(lastMessageId!=0){
+			params.put("messageIdLessThan",String.valueOf(lastMessageId));
+		}
 		GetUserMessageListAction getUserMessageListAction = new GetUserMessageListAction(mActivity, new GetUserMessageListAction.IGetUerMessageCallback() {
 			@Override
-			public void getMessageSuccessBack(ArrayList<MessageInfo> messageInfos) {
-				myMessageRecycleAdapter.setMessageInfos(messageInfos);
+			public void getMessageSuccessBack(ArrayList<MessageInfo> messageInfos, int lstMsgId) {
+				lastMessageId = lstMsgId;
+				myMessageRecycleAdapter.setDataList(messageInfos);
 				myMessageRecycleAdapter.notifyDataSetChanged();
 			}
 
@@ -55,16 +78,9 @@ public class MyMessageFragment extends BaseFragment {
 		});
 		ArrayList<MessageInfo> cMessageInfos = getUserMessageListAction.getMessageInfoFromCache();
 		if(cMessageInfos!=null && cMessageInfos.size()>0){
-			myMessageRecycleAdapter.setMessageInfos(cMessageInfos);
+			myMessageRecycleAdapter.setDataList(cMessageInfos);
 			myMessageRecycleAdapter.notifyDataSetChanged();
 		}
 		getUserMessageListAction.call(params);
-
-		LinearLayoutManager mLayoutManager = new LinearLayoutManager(mActivity);
-		mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-		mRecyclerView.setLayoutManager(mLayoutManager);
-		myMessageRecycleAdapter = new MyMessageRecycleAdapter(mActivity);
-		mRecyclerView.setAdapter(myMessageRecycleAdapter);
-
 	}
 }

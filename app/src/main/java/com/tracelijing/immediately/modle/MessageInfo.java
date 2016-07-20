@@ -43,6 +43,18 @@ public class MessageInfo {
 	private int popularity;
 	private String createdAt;
 	private String updatedAt;
+
+	/**
+	 * id : 5784cb199c0d481200b05302
+	 * title : The Mass
+	 * author : Era
+	 * coverUrl : http://cdn.ruguoapp.com/o_1anfbin0v1pev1j9r1lo41ukr14he8?imageView2/1/w/120/h/120
+	 * originCoverUrl : http://7xlgp5.com2.z0.glb.qiniucdn.com/o_1anfbin0v1pev1j9r1lo41ukr14he8
+	 * url : http://p2.music.126.net/hKyA0usmddlqqcE5GBp9nQ==/3350211931087770.mp3
+	 */
+
+	private MediaBean media;
+
 	/**
 	 * id : 55963702e4b0d84d2c30ce6f
 	 * content : 今天微博都在热议什么
@@ -50,6 +62,8 @@ public class MessageInfo {
 	 */
 
 	private TopicBean topic;
+
+	private VideoBean video;
 	private boolean collected;
 	/**
 	 * thumbnailUrl : http://cdn.ruguoapp.com/o_1analg826biv5fu1b5ar7c2d33.jpeg?imageView/2/w/100/h/100/q/100
@@ -176,6 +190,23 @@ public class MessageInfo {
 		this.topic = topic;
 	}
 
+	public MediaBean getMedia() {
+		return media;
+	}
+
+	public void setMedia(MediaBean media) {
+		this.media = media;
+	}
+
+
+	public VideoBean getVideo() {
+		return video;
+	}
+
+	public void setVideo(VideoBean video) {
+		this.video = video;
+	}
+
 	public boolean isCollected() {
 		return collected;
 	}
@@ -294,6 +325,91 @@ public class MessageInfo {
 
 		public void setHeight(int height) {
 			this.height = height;
+		}
+	}
+
+	public static class MediaBean{
+
+		private String id;
+		private String title;
+		private String author;
+		private String coverUrl;
+		private String originCoverUrl;
+		private String url;
+
+		public String getId() {
+			return id;
+		}
+
+		public void setId(String id) {
+			this.id = id;
+		}
+
+		public String getTitle() {
+			return title;
+		}
+
+		public void setTitle(String title) {
+			this.title = title;
+		}
+
+		public String getAuthor() {
+			return author;
+		}
+
+		public void setAuthor(String author) {
+			this.author = author;
+		}
+
+		public String getCoverUrl() {
+			return coverUrl;
+		}
+
+		public void setCoverUrl(String coverUrl) {
+			this.coverUrl = coverUrl;
+		}
+
+		public String getOriginCoverUrl() {
+			return originCoverUrl;
+		}
+
+		public void setOriginCoverUrl(String originCoverUrl) {
+			this.originCoverUrl = originCoverUrl;
+		}
+
+		public String getUrl() {
+			return url;
+		}
+
+		public void setUrl(String url) {
+			this.url = url;
+		}
+	}
+
+	public static class VideoBean{
+
+		/**
+		 * source : []
+		 * thumbnailUrl : http://wsqncdn.miaopai.com/stream/CVmnMIn0Z8bT8km4mDvfKg___m.jpg
+		 */
+
+		private String thumbnailUrl;
+		private List<String> source;
+
+		public String getThumbnailUrl() {
+			return thumbnailUrl;
+		}
+
+		public void setThumbnailUrl(String thumbnailUrl) {
+			this.thumbnailUrl = thumbnailUrl;
+		}
+
+		public List<String> getSource() {
+			return source;
+		}
+
+		public void setSource(List<String> source) {
+			this.source = source;
 		}
 	}
 }

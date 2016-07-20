@@ -24,6 +24,7 @@ import okhttp3.Call;
 public class GetUserMessageListAction {
 	private Activity mContext;
 	private IGetUerMessageCallback iGetUerMessageCallback;
+	private int mLastMsgId;
 
 	public GetUserMessageListAction(Activity context, IGetUerMessageCallback getUerMessageCallback) {
 		this.mContext = context;
@@ -57,13 +58,16 @@ public class GetUserMessageListAction {
 						java.lang.reflect.Type type = new TypeToken<MessageInfo>() {}.getType();
 						MessageInfo messageInfo = gson.fromJson(mObj.toString(),type);
 						messageInfos.add(messageInfo);
+						if(i== messageJArr.length()-1){
+							mLastMsgId = messageInfo.getMessageId();
+						}
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
 
 				}
 				AppCacheManager.saveMessageListData(mContext,messageInfos);
-				iGetUerMessageCallback.getMessageSuccessBack(messageInfos);
+				iGetUerMessageCallback.getMessageSuccessBack(messageInfos,mLastMsgId);
 			}
 
 			@Override
@@ -75,7 +79,7 @@ public class GetUserMessageListAction {
 
 
 	public interface IGetUerMessageCallback {
-		void getMessageSuccessBack(ArrayList<MessageInfo> messageInfos);
+		void getMessageSuccessBack(ArrayList<MessageInfo> messageInfos,int lastMessageId);
 		void getMessageErrorBack();
 	}
 

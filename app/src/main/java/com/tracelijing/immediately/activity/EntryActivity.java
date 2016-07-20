@@ -55,7 +55,7 @@ public class EntryActivity extends AppCompatActivity implements View.OnClickList
 		myMessage.setOnClickListener(this);
 		hotMessage.setOnClickListener(this);
 		findArticle.setOnClickListener(this);
-		selectView(0);
+		selectView(1);
 	}
 
 	private void selectView(int position) {
