@@ -1,20 +1,21 @@
 package com.tracelijing.immediately.activity;
 
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnMenuTabClickListener;
 import com.tracelijing.immediately.R;
 import com.tracelijing.immediately.fragment.FindArticleFragment;
 import com.tracelijing.immediately.fragment.HotMessageFragment;
@@ -24,13 +25,11 @@ import com.tracelijing.tlibrary.ViewUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntryActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
+public class EntryActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
-	RadioGroup radioGroup;
-	RadioButton myMessage;
-	RadioButton hotMessage;
-	RadioButton findArticle;
-	ViewPager viewPager;
+	private ViewPager viewPager;
+	private BottomBar mBottomBar;
+
 
 	private ArrayList<Fragment> fragments = new ArrayList<>();
 
@@ -41,35 +40,45 @@ public class EntryActivity extends AppCompatActivity implements View.OnClickList
 		setContentView(R.layout.activity_entry);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+		mBottomBar = BottomBar.attach(this, savedInstanceState);
+		mBottomBar.setItems(R.menu.bottombar_menu_three_items);
+		mBottomBar.mapColorForTab(0, ContextCompat.getColor(this, R.color.colorAccent));
+		mBottomBar.setActiveTabColor(R.color.dark_gray);
 
-		radioGroup = ViewUtil.$(this, R.id.radioGroup);
-		myMessage = ViewUtil.$(this, R.id.my_message);
-		hotMessage = ViewUtil.$(this, R.id.hot_message);
-		findArticle = ViewUtil.$(this, R.id.find_theme);
 		viewPager = ViewUtil.$(this, R.id.viewPager);
 		init();
 		TabPageAdapter tabPageAdapter = new TabPageAdapter(
 				getSupportFragmentManager(), fragments);
 		viewPager.setAdapter(tabPageAdapter);
 		viewPager.addOnPageChangeListener(this);
-		myMessage.setOnClickListener(this);
-		hotMessage.setOnClickListener(this);
-		findArticle.setOnClickListener(this);
+		mBottomBar.setOnMenuTabClickListener(new OnMenuTabClickListener() {
+			@Override
+			public void onMenuTabSelected(@IdRes int menuItemId) {
+				switch (menuItemId){
+					case R.id.bb_menu_explore:
+						selectView(0);
+						break;
+					case R.id.bb_menu_message:
+						selectView(1);
+						break;
+					case R.id.bb_menu_me:
+						selectView(2);
+						break;
+				}
+			}
+
+			@Override
+			public void onMenuTabReSelected(@IdRes int menuItemId) {
+
+			}
+		});
 		selectView(1);
 	}
 
 	private void selectView(int position) {
-		viewPager.setCurrentItem(position);
-		for (int i = 0; i < radioGroup.getChildCount(); i++) {
-			RadioButton child = (RadioButton) radioGroup.getChildAt(i);
-			child.setTextColor(getResources().getColor(
-					R.color.dark_gray));
-		}
 		// 切换页面
 		viewPager.setCurrentItem(position, false);
-		RadioButton select = (RadioButton) radioGroup.getChildAt(position);
-		select.setTextColor(getResources().getColor(
-				R.color.black_overlay));
+		mBottomBar.selectTabAtPosition(position,true);
 	}
 
 	protected void init() {
@@ -104,6 +113,15 @@ public class EntryActivity extends AppCompatActivity implements View.OnClickList
 	}
 
 	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+
+		// Necessary to restore the BottomBar's state, otherwise we would
+		// lose the current tab on orientation change.
+		mBottomBar.onSaveInstanceState(outState);
+	}
+
+	@Override
 	public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
 	}
@@ -118,20 +136,6 @@ public class EntryActivity extends AppCompatActivity implements View.OnClickList
 
 	}
 
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-			case R.id.my_message:
-				selectView(0);
-				break;
-			case R.id.hot_message:
-				selectView(1);
-				break;
-			case R.id.find_theme:
-				selectView(2);
-				break;
-		}
-	}
 
 	public class TabPageAdapter extends FragmentPagerAdapter {
 

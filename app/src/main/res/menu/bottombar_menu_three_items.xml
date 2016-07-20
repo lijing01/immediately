@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bb_menu_explore"
+        android:icon="@mipmap/ic_topic"
+        android:title="发现" />
+    <item
+        android:id="@+id/bb_menu_message"
+        android:icon="@mipmap/ic_message"
+        android:title="消息" />
+    <item
+        android:id="@+id/bb_menu_me"
+        android:icon="@mipmap/ic_user"
+        android:title="我的" />
+</menu>
