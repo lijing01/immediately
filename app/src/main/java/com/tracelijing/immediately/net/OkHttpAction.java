@@ -28,18 +28,18 @@ public class OkHttpAction {
 
 	public void postJsonObjectAction(final String callUrl, final HashMap<String, String> params,
 									 final ActionCallBack callBack) {
-		OkHttpUtils.getInstance(OkHttpClientUtil.getInstance(mContext));
+		OkHttpUtils.initClient(OkHttpClientUtil.getInstance(mContext));
 		HashMap<String, String> headers = OkCommonHeaderTool.getCommentHeaders(mContext);
 		String content = OkCommonHeaderTool.hashMapToJson(params);
 		PostJsonRequest postJsonRequest = new PostJsonRequest(callUrl, URL_TAG, null, headers, content);
 		postJsonRequest.build().execute(new OkJsonCallback() {
 			@Override
-			public void onError(Call call, Exception e) {
+			public void onError(Call call, Exception e,int id) {
 				callBack.actionErrorBack(call, e);
 			}
 
 			@Override
-			public void onResponse(JSONObject response) {
+			public void onResponse(JSONObject response,int id) {
 				callBack.actionCallBack(response);
 			}
 		});

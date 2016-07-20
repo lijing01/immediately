@@ -11,7 +11,7 @@ import okhttp3.Response;
  */
 public abstract class OkJsonCallback extends Callback<JSONObject> {
 	@Override
-	public JSONObject parseNetworkResponse(Response response) throws Exception
+	public JSONObject parseNetworkResponse(Response response,final int id) throws Exception
 	{
 		String resultStr = response.body().string();
 		JSONObject resultJ = new JSONObject(resultStr);

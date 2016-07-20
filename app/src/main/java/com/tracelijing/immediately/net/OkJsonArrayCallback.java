@@ -11,7 +11,7 @@ import okhttp3.Response;
  */
 public abstract class OkJsonArrayCallback extends Callback<JSONArray> {
 	@Override
-	public JSONArray parseNetworkResponse(Response response) throws Exception
+	public JSONArray parseNetworkResponse(Response response,final int id) throws Exception
 	{
 		return new JSONArray(response.body().string());
 	}

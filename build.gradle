@@ -22,7 +22,7 @@ ext {
     applicationId = "com.tracelijing.immediately"
     buildToolsVersion = "23.0.2"
     compileSdkVersion = 23
-    minSdkVersion = 14
+    minSdkVersion = 17
     targetSdkVersion = 23
     versionCode = 1
     versionName = "1.0.0"

@@ -8,21 +8,25 @@ import java.util.List;
 public class MessageInfo {
 
 	/**
-	 * id : 57027b955002b912000e69b4
-	 * content : 香澄果穗访谈：AV女优引退之后
-	 * title : 抽屉新热榜每日最热
-	 * messageId : 111179
-	 * topicId : 768
-	 * linkUrl : http://jandan.net/2016/04/04/kasumi-kaho.html
+	 * id : 5782662a3e63af11009105e5
+	 * content : (1) 大巴司机冷静处置，42名乘客躲过塌方：发现没风但树在摇，果断倒车
+	 (2) 周渝民太太孕照首次曝光，身孕已过六个月
+	 (3) 为套取拆迁补偿农户私建房屋，倒塌致一家4口遇难
+	 (4) 上海市委统战部首开大V培训班，要求20万新媒体人爱惜羽毛
+	 (5) 叙利亚四名球员被IS以“间谍”罪名斩首，事件前其宗教领袖巴格达迪曾称踢球、看球、支持球队都是“反伊斯兰”行为
+	 * title : 今天微博都在热议什么
+	 * messageId : 169607
+	 * topicId : 454
+	 * linkUrl : http://medium.ruguoapp.com/2016/07/10/jin-tian-wei-bo-zai-re-yi-shi-yao-92/
 	 * sourceRawValue : link
-	 * topic : 56164987b5ec2010000cbc8c
-	 * messagePrefix : 抽屉新热榜
-	 * collectCount : 14
-	 * popularity : 14
-	 * topicPicUrl : http://cdn.ruguoapp.com/o_1a94vumcv1ucb15gp16b41c5gv202n.jpeg?imageView2/0/w/120/h/120/interlace/1
-	 * createdAt : 2016-04-04T14:35:01.197Z
-	 * updatedAt : 2016-04-04T14:35:01.509Z
-	 * pictureUrls : [{"thumbnailUrl":"http://cdn.ruguoapp.com/o_1afgfpelrndb1gkf1vsm4ba13f4t.jpg?imageView/2/w/100/h/100/q/100","middlePicUrl":"http://cdn.ruguoapp.com/o_1afgfpelrndb1gkf1vsm4ba13f4t.jpg?imageView2/0/h/500/interlace/1/q/30","picUrl":"http://cdn.ruguoapp.com/o_1afgfpelrndb1gkf1vsm4ba13f4t.jpg?imageView2/0/h/1000/interlace/1","cropperPosX":0.29,"cropperPosY":0.395604,"format":"jpeg","width":600,"height":364}]
+	 * messagePrefix : 今日微博热点
+	 * collectCount : 109
+	 * commentCount : 14
+	 * popularity : 109
+	 * createdAt : 2016-07-10T15:13:46.417Z
+	 * updatedAt : 2016-07-10T18:06:36.501Z
+	 * topic : {"id":"55963702e4b0d84d2c30ce6f","content":"今天微博都在热议什么","thumbnailUrl":"http://cdn.ruguoapp.com/o_1a94vqkfpjpp3pg1f3b10kl3es8u.jpeg?imageView2/0/w/120/h/120/interlace/1"}
+	 * pictureUrls : [{"thumbnailUrl":"http://cdn.ruguoapp.com/o_1analg826biv5fu1b5ar7c2d33.jpeg?imageView/2/w/100/h/100/q/100","middlePicUrl":"http://cdn.ruguoapp.com/o_1analg826biv5fu1b5ar7c2d33.jpeg?imageView2/0/h/500/interlace/1/q/30","picUrl":"http://cdn.ruguoapp.com/o_1analg826biv5fu1b5ar7c2d33.jpeg?imageView2/0/h/1000/interlace/0","cropperPosX":0.564444,"cropperPosY":0.4,"format":"jpeg","width":600,"height":800},{"thumbnailUrl":"http://cdn.ruguoapp.com/o_1analath21foa1h8q1od71qml3jq2.jpeg?imageView/2/w/100/h/100/q/100","middlePicUrl":"http://cdn.ruguoapp.com/o_1analath21foa1h8q1od71qml3jq2.jpeg?imageView2/0/h/500/interlace/1/q/30","picUrl":"http://cdn.ruguoapp.com/o_1analath21foa1h8q1od71qml3jq2.jpeg?imageView2/0/h/1000/interlace/0","cropperPosX":0.5,"cropperPosY":0.5,"format":"jpeg","width":458,"height":412},{"thumbnailUrl":"http://cdn.ruguoapp.com/o_1analkils9na1lcf23migv32a0.jpeg?imageView/2/w/100/h/100/q/100","middlePicUrl":"http://cdn.ruguoapp.com/o_1analkils9na1lcf23migv32a0.jpeg?imageView2/0/h/500/interlace/1/q/30","picUrl":"http://cdn.ruguoapp.com/o_1analkils9na1lcf23migv32a0.jpeg?imageView2/0/h/1000/interlace/0","cropperPosX":0.5,"cropperPosY":0.5,"format":"jpeg","width":540,"height":360},{"thumbnailUrl":"http://cdn.ruguoapp.com/o_1analj0rpu3n2bhdaa15iutne0.jpeg?imageView/2/w/100/h/100/q/100","middlePicUrl":"http://cdn.ruguoapp.com/o_1analj0rpu3n2bhdaa15iutne0.jpeg?imageView2/0/h/500/interlace/1/q/30","picUrl":"http://cdn.ruguoapp.com/o_1analj0rpu3n2bhdaa15iutne0.jpeg?imageView2/0/h/1000/interlace/0","cropperPosX":0.5,"cropperPosY":0.5,"format":"jpeg","width":600,"height":399},{"thumbnailUrl":"http://cdn.ruguoapp.com/o_1anakndac13qnkn31scmfgli361.jpeg?imageView/2/w/100/h/100/q/100","middlePicUrl":"http://cdn.ruguoapp.com/o_1anakndac13qnkn31scmfgli361.jpeg?imageView2/0/h/500/interlace/1/q/30","picUrl":"http://cdn.ruguoapp.com/o_1anakndac13qnkn31scmfgli361.jpeg?imageView2/0/h/1000/interlace/0","cropperPosX":0.5,"cropperPosY":0.5,"format":"jpeg","width":634,"height":619}]
 	 * collected : false
 	 */
 
@@ -33,26 +37,46 @@ public class MessageInfo {
 	private int topicId;
 	private String linkUrl;
 	private String sourceRawValue;
-	private String topic;
 	private String messagePrefix;
 	private int collectCount;
+	private int commentCount;
 	private int popularity;
-	private String topicPicUrl;
 	private String createdAt;
 	private String updatedAt;
-	private boolean collected;
+
 	/**
-	 * thumbnailUrl : http://cdn.ruguoapp.com/o_1afgfpelrndb1gkf1vsm4ba13f4t.jpg?imageView/2/w/100/h/100/q/100
-	 * middlePicUrl : http://cdn.ruguoapp.com/o_1afgfpelrndb1gkf1vsm4ba13f4t.jpg?imageView2/0/h/500/interlace/1/q/30
-	 * picUrl : http://cdn.ruguoapp.com/o_1afgfpelrndb1gkf1vsm4ba13f4t.jpg?imageView2/0/h/1000/interlace/1
-	 * cropperPosX : 0.29
-	 * cropperPosY : 0.395604
-	 * format : jpeg
-	 * width : 600
-	 * height : 364
+	 * id : 5784cb199c0d481200b05302
+	 * title : The Mass
+	 * author : Era
+	 * coverUrl : http://cdn.ruguoapp.com/o_1anfbin0v1pev1j9r1lo41ukr14he8?imageView2/1/w/120/h/120
+	 * originCoverUrl : http://7xlgp5.com2.z0.glb.qiniucdn.com/o_1anfbin0v1pev1j9r1lo41ukr14he8
+	 * url : http://p2.music.126.net/hKyA0usmddlqqcE5GBp9nQ==/3350211931087770.mp3
 	 */
 
-	private List<PictureInfo> pictureUrls;
+	private MediaBean media;
+
+	/**
+	 * id : 55963702e4b0d84d2c30ce6f
+	 * content : 今天微博都在热议什么
+	 * thumbnailUrl : http://cdn.ruguoapp.com/o_1a94vqkfpjpp3pg1f3b10kl3es8u.jpeg?imageView2/0/w/120/h/120/interlace/1
+	 */
+
+	private TopicBean topic;
+
+	private VideoBean video;
+	private boolean collected;
+	/**
+	 * thumbnailUrl : http://cdn.ruguoapp.com/o_1analg826biv5fu1b5ar7c2d33.jpeg?imageView/2/w/100/h/100/q/100
+	 * middlePicUrl : http://cdn.ruguoapp.com/o_1analg826biv5fu1b5ar7c2d33.jpeg?imageView2/0/h/500/interlace/1/q/30
+	 * picUrl : http://cdn.ruguoapp.com/o_1analg826biv5fu1b5ar7c2d33.jpeg?imageView2/0/h/1000/interlace/0
+	 * cropperPosX : 0.564444
+	 * cropperPosY : 0.4
+	 * format : jpeg
+	 * width : 600
+	 * height : 800
+	 */
+
+	private List<PictureUrlsBean> pictureUrls;
 
 	public String getId() {
 		return id;
@@ -110,14 +134,6 @@ public class MessageInfo {
 		this.sourceRawValue = sourceRawValue;
 	}
 
-	public String getTopic() {
-		return topic;
-	}
-
-	public void setTopic(String topic) {
-		this.topic = topic;
-	}
-
 	public String getMessagePrefix() {
 		return messagePrefix;
 	}
@@ -134,20 +150,20 @@ public class MessageInfo {
 		this.collectCount = collectCount;
 	}
 
+	public int getCommentCount() {
+		return commentCount;
+	}
+
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
+
 	public int getPopularity() {
 		return popularity;
 	}
 
 	public void setPopularity(int popularity) {
 		this.popularity = popularity;
-	}
-
-	public String getTopicPicUrl() {
-		return topicPicUrl;
-	}
-
-	public void setTopicPicUrl(String topicPicUrl) {
-		this.topicPicUrl = topicPicUrl;
 	}
 
 	public String getCreatedAt() {
@@ -166,6 +182,31 @@ public class MessageInfo {
 		this.updatedAt = updatedAt;
 	}
 
+	public TopicBean getTopic() {
+		return topic;
+	}
+
+	public void setTopic(TopicBean topic) {
+		this.topic = topic;
+	}
+
+	public MediaBean getMedia() {
+		return media;
+	}
+
+	public void setMedia(MediaBean media) {
+		this.media = media;
+	}
+
+
+	public VideoBean getVideo() {
+		return video;
+	}
+
+	public void setVideo(VideoBean video) {
+		this.video = video;
+	}
+
 	public boolean isCollected() {
 		return collected;
 	}
@@ -174,15 +215,45 @@ public class MessageInfo {
 		this.collected = collected;
 	}
 
-	public List<PictureInfo> getPictureUrls() {
+	public List<PictureUrlsBean> getPictureUrls() {
 		return pictureUrls;
 	}
 
-	public void setPictureUrls(List<PictureInfo> pictureUrls) {
+	public void setPictureUrls(List<PictureUrlsBean> pictureUrls) {
 		this.pictureUrls = pictureUrls;
 	}
 
-	public static class PictureInfo {
+	public static class TopicBean {
+		private String id;
+		private String content;
+		private String thumbnailUrl;
+
+		public String getId() {
+			return id;
+		}
+
+		public void setId(String id) {
+			this.id = id;
+		}
+
+		public String getContent() {
+			return content;
+		}
+
+		public void setContent(String content) {
+			this.content = content;
+		}
+
+		public String getThumbnailUrl() {
+			return thumbnailUrl;
+		}
+
+		public void setThumbnailUrl(String thumbnailUrl) {
+			this.thumbnailUrl = thumbnailUrl;
+		}
+	}
+
+	public static class PictureUrlsBean {
 		private String thumbnailUrl;
 		private String middlePicUrl;
 		private String picUrl;
@@ -191,9 +262,6 @@ public class MessageInfo {
 		private String format;
 		private int width;
 		private int height;
-		public PictureInfo(String thumbnailUrl){
-			this.thumbnailUrl = thumbnailUrl;
-		}
 
 		public String getThumbnailUrl() {
 			return thumbnailUrl;
@@ -258,7 +326,90 @@ public class MessageInfo {
 		public void setHeight(int height) {
 			this.height = height;
 		}
+	}
 
+	public static class MediaBean{
 
+		private String id;
+		private String title;
+		private String author;
+		private String coverUrl;
+		private String originCoverUrl;
+		private String url;
+
+		public String getId() {
+			return id;
+		}
+
+		public void setId(String id) {
+			this.id = id;
+		}
+
+		public String getTitle() {
+			return title;
+		}
+
+		public void setTitle(String title) {
+			this.title = title;
+		}
+
+		public String getAuthor() {
+			return author;
+		}
+
+		public void setAuthor(String author) {
+			this.author = author;
+		}
+
+		public String getCoverUrl() {
+			return coverUrl;
+		}
+
+		public void setCoverUrl(String coverUrl) {
+			this.coverUrl = coverUrl;
+		}
+
+		public String getOriginCoverUrl() {
+			return originCoverUrl;
+		}
+
+		public void setOriginCoverUrl(String originCoverUrl) {
+			this.originCoverUrl = originCoverUrl;
+		}
+
+		public String getUrl() {
+			return url;
+		}
+
+		public void setUrl(String url) {
+			this.url = url;
+		}
+	}
+
+	public static class VideoBean{
+
+		/**
+		 * source : []
+		 * thumbnailUrl : http://wsqncdn.miaopai.com/stream/CVmnMIn0Z8bT8km4mDvfKg___m.jpg
+		 */
+
+		private String thumbnailUrl;
+		private List<String> source;
+
+		public String getThumbnailUrl() {
+			return thumbnailUrl;
+		}
+
+		public void setThumbnailUrl(String thumbnailUrl) {
+			this.thumbnailUrl = thumbnailUrl;
+		}
+
+		public List<String> getSource() {
+			return source;
+		}
+
+		public void setSource(List<String> source) {
+			this.source = source;
+		}
 	}
 }

@@ -20,9 +20,9 @@ public class OkCommonHeaderTool {
 			hashMap.put("OS-Version", PhoneUtil.getVersion());
 			hashMap.put("Model", PhoneUtil.getModel());
 			hashMap.put("OS", "android");
-			hashMap.put("App-BuildNo", "117");
-			hashMap.put("App-Version", "2.4.0.2");
-			hashMap.put("Host:", "app.jike.ruguoapp.com");
+			hashMap.put("App-BuildNo", "196");
+			hashMap.put("App-Version", "2.6.0");
+//			hashMap.put("Host:", "app.jike.ruguoapp.com");
 //			hashMap.put("Accept-Encoding", "gzip");
 		}
 		return hashMap;
