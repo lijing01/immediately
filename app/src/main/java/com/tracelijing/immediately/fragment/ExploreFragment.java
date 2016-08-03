@@ -5,19 +5,26 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.tracelijing.immediately.R;
 
 /**
  * Created by Trace (Tapatalk) on 2016/3/31.
  */
-public class HotMessageFragment extends BaseFragment{
-	View view;
+public class ExploreFragment extends BaseFragment {
+	RelativeLayout view;
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.hot_message,container,false);
+		view = (RelativeLayout) inflater.inflate(R.layout.explore_lay, container, false);
 		return view;
 	}
+
+	@Override
+	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+	}
+
 }

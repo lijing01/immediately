@@ -26,25 +26,25 @@
         android:padding="10dp">
 
         <RadioButton
-            android:id="@+id/my_message"
+            android:id="@+id/message_lay"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@null"
             android:button="@null"
             android:gravity="center"
-            android:text="@string/my_message"
+            android:text="@string/message_lay"
             android:textColor="@color/dark_gray"/>
 
         <RadioButton
-            android:id="@+id/hot_message"
+            android:id="@+id/me_lay"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@null"
             android:button="@null"
             android:gravity="center"
-            android:text="@string/hot_message"
+            android:text="@string/me_lay"
             android:textColor="@color/dark_gray"/>
 
         <RadioButton

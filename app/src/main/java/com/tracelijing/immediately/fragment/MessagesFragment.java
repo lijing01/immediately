@@ -22,7 +22,7 @@ import java.util.HashMap;
 /**
  * Created by Trace (Tapatalk) on 2016/3/31.
  */
-public class MyMessageFragment extends BaseFragment {
+public class MessagesFragment extends BaseFragment {
 	private Activity mActivity;
 	private SwipeRefreshLayout mSwipeRefreshLayout;
 	private RecyclerView mRecyclerView;
@@ -32,7 +32,7 @@ public class MyMessageFragment extends BaseFragment {
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		mSwipeRefreshLayout = (SwipeRefreshLayout) inflater.inflate(R.layout.my_message,container,false);
+		mSwipeRefreshLayout = (SwipeRefreshLayout) inflater.inflate(R.layout.message_lay,container,false);
 		mRecyclerView = (RecyclerView) mSwipeRefreshLayout.findViewById(R.id.message_list);
 		return mSwipeRefreshLayout;
 	}
