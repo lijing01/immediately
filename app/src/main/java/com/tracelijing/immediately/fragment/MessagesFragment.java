@@ -76,11 +76,11 @@ public class MessagesFragment extends BaseFragment {
 
 			}
 		});
-		ArrayList<MessageInfo> cMessageInfos = getUserMessageListAction.getMessageInfoFromCache();
-		if(cMessageInfos!=null && cMessageInfos.size()>0){
-			myMessageRecycleAdapter.setDataList(cMessageInfos);
-			myMessageRecycleAdapter.notifyDataSetChanged();
-		}
+//		ArrayList<MessageInfo> cMessageInfos = getUserMessageListAction.getMessageInfoFromCache();
+//		if(cMessageInfos!=null && cMessageInfos.size()>0){
+//			myMessageRecycleAdapter.setDataList(cMessageInfos);
+//			myMessageRecycleAdapter.notifyDataSetChanged();
+//		}
 		getUserMessageListAction.call(params);
 	}
 }
