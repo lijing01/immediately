@@ -54,6 +54,15 @@ public class MessagesFragment extends BaseFragment {
 				getMessages();
 			}
 		});
+		mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				mSwipeRefreshLayout.setRefreshing(true);
+				lastMessageId = 0;
+				getMessages();
+			}
+		});
+
 		getMessages();
 
 	}
@@ -68,7 +77,11 @@ public class MessagesFragment extends BaseFragment {
 			GetUserMessageListAction getUserMessageListAction = new GetUserMessageListAction(mActivity, new GetUserMessageListAction.IGetUerMessageCallback() {
 				@Override
 				public void getMessageSuccessBack(ArrayList<MessageInfo> messageInfos, int lstMsgId) {
+					if(lastMessageId == 0){
+						myMessageRecycleAdapter.getDataList().clear();
+					}
 					myMessageRecycleAdapter.removeFooterLoading();
+					mSwipeRefreshLayout.setRefreshing(false);
 					isLoadingMore = false;
 					lastMessageId = lstMsgId;
 					myMessageRecycleAdapter.setDataList(messageInfos);
