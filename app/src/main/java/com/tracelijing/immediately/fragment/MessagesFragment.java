@@ -28,6 +28,7 @@ public class MessagesFragment extends BaseFragment {
 	private RecyclerView mRecyclerView;
 	private MyMessageRecycleAdapter myMessageRecycleAdapter;
 	private int lastMessageId;
+	private boolean isLoadingMore = false;
 
 	@Nullable
 	@Override
@@ -41,7 +42,6 @@ public class MessagesFragment extends BaseFragment {
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		mActivity = getActivity();
-		getMessages();
 
 		LinearLayoutManager mLayoutManager = new LinearLayoutManager(mActivity);
 		mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -54,33 +54,36 @@ public class MessagesFragment extends BaseFragment {
 				getMessages();
 			}
 		});
+		getMessages();
 
 	}
 
 	private void getMessages(){
-		HashMap<String,String> params = new HashMap<>();
-		params.put("limit","25");
-		if(lastMessageId!=0){
-			params.put("messageIdLessThan",String.valueOf(lastMessageId));
+		if(!isLoadingMore) {
+			HashMap<String, String> params = new HashMap<>();
+			params.put("limit", "25");
+			if (lastMessageId != 0) {
+				params.put("messageIdLessThan", String.valueOf(lastMessageId));
+			}
+			GetUserMessageListAction getUserMessageListAction = new GetUserMessageListAction(mActivity, new GetUserMessageListAction.IGetUerMessageCallback() {
+				@Override
+				public void getMessageSuccessBack(ArrayList<MessageInfo> messageInfos, int lstMsgId) {
+					myMessageRecycleAdapter.removeFooterLoading();
+					isLoadingMore = false;
+					lastMessageId = lstMsgId;
+					myMessageRecycleAdapter.setDataList(messageInfos);
+					myMessageRecycleAdapter.notifyDataSetChanged();
+				}
+
+				@Override
+				public void getMessageErrorBack() {
+					myMessageRecycleAdapter.removeFooterLoading();
+					isLoadingMore = false;
+				}
+			});
+			getUserMessageListAction.call(params);
+			myMessageRecycleAdapter.showFooterLoading();
+			isLoadingMore = true;
 		}
-		GetUserMessageListAction getUserMessageListAction = new GetUserMessageListAction(mActivity, new GetUserMessageListAction.IGetUerMessageCallback() {
-			@Override
-			public void getMessageSuccessBack(ArrayList<MessageInfo> messageInfos, int lstMsgId) {
-				lastMessageId = lstMsgId;
-				myMessageRecycleAdapter.setDataList(messageInfos);
-				myMessageRecycleAdapter.notifyDataSetChanged();
-			}
-
-			@Override
-			public void getMessageErrorBack() {
-
-			}
-		});
-//		ArrayList<MessageInfo> cMessageInfos = getUserMessageListAction.getMessageInfoFromCache();
-//		if(cMessageInfos!=null && cMessageInfos.size()>0){
-//			myMessageRecycleAdapter.setDataList(cMessageInfos);
-//			myMessageRecycleAdapter.notifyDataSetChanged();
-//		}
-		getUserMessageListAction.call(params);
 	}
 }

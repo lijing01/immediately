@@ -24,11 +24,6 @@ import java.util.ArrayList;
 public class MyMessageRecycleAdapter extends BaseRecyclerAdapter {
 
 	public static final int TYPE_MESSAGE_INFO = 1001;
-//	private List<MessageInfo> messageInfos = new ArrayList<>();
-//
-//	public void setMessageInfos(List<MessageInfo> messageInfos) {
-//		this.messageInfos = messageInfos;
-//	}
 
 	public MyMessageRecycleAdapter(Activity activity) {
 		super(activity);
@@ -36,10 +31,12 @@ public class MyMessageRecycleAdapter extends BaseRecyclerAdapter {
 
 	@Override
 	public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		super.onCreateViewHolder(parent,viewType);
-		View v = LayoutInflater.from(mActivity).inflate(R.layout.message_item, parent, false);
-		RecyclerView.ViewHolder viewHolder = new MessageViewHolder(v);
-		return viewHolder;
+		if(viewType == TYPE_MESSAGE_INFO) {
+			View v = LayoutInflater.from(mActivity).inflate(R.layout.message_item, parent, false);
+			RecyclerView.ViewHolder viewHolder = new MessageViewHolder(v);
+			return viewHolder;
+		}
+		return super.onCreateViewHolder(parent,viewType);
 	}
 
 	@Override
