@@ -66,7 +66,6 @@ public class GetUserMessageListAction {
 					}
 
 				}
-				AppCacheManager.saveMessageListData(mContext,messageInfos);
 				iGetUerMessageCallback.getMessageSuccessBack(messageInfos,mLastMsgId);
 			}
 

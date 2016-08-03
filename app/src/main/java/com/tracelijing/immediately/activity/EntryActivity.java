@@ -17,9 +17,9 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
 import com.tracelijing.immediately.R;
-import com.tracelijing.immediately.fragment.FindArticleFragment;
-import com.tracelijing.immediately.fragment.HotMessageFragment;
-import com.tracelijing.immediately.fragment.MyMessageFragment;
+import com.tracelijing.immediately.fragment.ExploreFragment;
+import com.tracelijing.immediately.fragment.MeFragment;
+import com.tracelijing.immediately.fragment.MessagesFragment;
 import com.tracelijing.tlibrary.ViewUtil;
 
 import java.util.ArrayList;
@@ -29,6 +29,7 @@ public class EntryActivity extends AppCompatActivity implements ViewPager.OnPage
 
 	private ViewPager viewPager;
 	private BottomBar mBottomBar;
+	private Toolbar toolbar;
 
 
 	private ArrayList<Fragment> fragments = new ArrayList<>();
@@ -38,7 +39,7 @@ public class EntryActivity extends AppCompatActivity implements ViewPager.OnPage
 		super.onCreate(savedInstanceState);
 		Fresco.initialize(EntryActivity.this);
 		setContentView(R.layout.activity_entry);
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 		mBottomBar = BottomBar.attach(this, savedInstanceState);
 		mBottomBar.setItems(R.menu.bottombar_menu_three_items);
@@ -54,7 +55,7 @@ public class EntryActivity extends AppCompatActivity implements ViewPager.OnPage
 		mBottomBar.setOnMenuTabClickListener(new OnMenuTabClickListener() {
 			@Override
 			public void onMenuTabSelected(@IdRes int menuItemId) {
-				switch (menuItemId){
+				switch (menuItemId) {
 					case R.id.bb_menu_explore:
 						selectView(0);
 						break;
@@ -78,16 +79,28 @@ public class EntryActivity extends AppCompatActivity implements ViewPager.OnPage
 	private void selectView(int position) {
 		// 切换页面
 		viewPager.setCurrentItem(position, false);
-		mBottomBar.selectTabAtPosition(position,true);
+		mBottomBar.selectTabAtPosition(position, true);
+		switch (position) {
+			case 0:
+				toolbar.setTitle("发现");
+				break;
+			case 1:
+				toolbar.setTitle("消息");
+				break;
+			case 2:
+				toolbar.setTitle("我的");
+				break;
+		}
 	}
 
 	protected void init() {
-		Fragment myMessageFragment = new MyMessageFragment();
-		Fragment hotMessageFragment = new HotMessageFragment();
-		Fragment findArticleFragment = new FindArticleFragment();
-		fragments.add(hotMessageFragment);
-		fragments.add(myMessageFragment);
+		Fragment findArticleFragment = new ExploreFragment();
+		Fragment myMessageFragment = new MessagesFragment();
+		Fragment hotMessageFragment = new MeFragment();
 		fragments.add(findArticleFragment);
+		fragments.add(myMessageFragment);
+		fragments.add(hotMessageFragment);
+
 	}
 
 	@Override
