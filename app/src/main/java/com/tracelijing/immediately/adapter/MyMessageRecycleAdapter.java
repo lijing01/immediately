@@ -76,7 +76,7 @@ public class MyMessageRecycleAdapter extends BaseRecyclerAdapter {
 		return super.getItemViewType(position);
 	}
 
-	public class MessageViewHolder extends RecyclerView.ViewHolder {
+	static class MessageViewHolder extends RecyclerView.ViewHolder {
 		public SimpleDraweeView imageView;
 		public TextView username, time, content;
 		public GridPicLayout images;
