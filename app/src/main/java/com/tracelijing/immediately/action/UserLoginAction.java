@@ -20,7 +20,7 @@ public class UserLoginAction {
 	}
 
 
-	public void call(HashMap<String, String> params) {
+	public void call(HashMap<String, Object> params) {
 		OkHttpAction okHttpAction = new OkHttpAction(mContext);
 		okHttpAction.postJsonObjectAction(UrlManager.USER_LOGIN,params,iActionCallBack);
 	}

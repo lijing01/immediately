@@ -36,7 +36,7 @@ public class GetUserMessageListAction {
 		return messageInfos;
 	}
 
-	public void call(HashMap<String, String> params) {
+	public void call(HashMap<String, Object> params) {
 		OkHttpAction okHttpAction = new OkHttpAction(mContext);
 		okHttpAction.postJsonObjectAction(UrlManager.USER_MESSAGE_LIST, params, new OkHttpAction.ActionCallBack() {
 			@Override

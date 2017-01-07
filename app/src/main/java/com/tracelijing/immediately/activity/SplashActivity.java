@@ -44,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
 	}
 
 	private void tryLogin() {
-		HashMap<String, String> params = new HashMap<>();
+		HashMap<String, Object> params = new HashMap<>();
 		params.put("username", "7203c6f7-b16a-42f5-9905-10a412c98219");
 		params.put("password", "123");
 		UserLoginAction userLoginAction = new UserLoginAction(this, new OkHttpAction.ActionCallBack() {

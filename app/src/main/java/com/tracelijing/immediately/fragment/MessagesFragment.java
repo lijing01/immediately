@@ -69,8 +69,8 @@ public class MessagesFragment extends BaseFragment {
 
 	private void getMessages(){
 		if(!isLoadingMore) {
-			HashMap<String, String> params = new HashMap<>();
-			params.put("limit", "25");
+			HashMap<String, Object> params = new HashMap<>();
+			params.put("limit", 25);
 			if (lastMessageId != 0) {
 				params.put("messageIdLessThan", String.valueOf(lastMessageId));
 			}
