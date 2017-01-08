@@ -1,10 +1,9 @@
 package com.tracelijing.immediately.action;
 
-import android.app.Activity;
+import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.tracelijing.immediately.cache.AppCacheManager;
 import com.tracelijing.immediately.modle.MessageInfo;
 import com.tracelijing.immediately.net.OkHttpAction;
 import com.tracelijing.immediately.utils.UrlManager;
@@ -22,22 +21,18 @@ import okhttp3.Call;
  * Created by Trace (Tapatalk) on 2016/3/27.
  */
 public class GetUserMessageListAction {
-	private Activity mContext;
+	private Context mContext;
+	private OkHttpAction okHttpAction;
 	private IGetUerMessageCallback iGetUerMessageCallback;
 	private int mLastMsgId;
 
-	public GetUserMessageListAction(Activity context, IGetUerMessageCallback getUerMessageCallback) {
+	public GetUserMessageListAction(Context context, IGetUerMessageCallback getUerMessageCallback) {
 		this.mContext = context;
 		this.iGetUerMessageCallback = getUerMessageCallback;
 	}
 
-	public ArrayList<MessageInfo> getMessageInfoFromCache(){
-		ArrayList<MessageInfo> messageInfos = AppCacheManager.getMessageInfo(mContext);
-		return messageInfos;
-	}
-
 	public void call(HashMap<String, Object> params) {
-		OkHttpAction okHttpAction = new OkHttpAction(mContext);
+		okHttpAction = new OkHttpAction(mContext);
 		okHttpAction.postJsonObjectAction(UrlManager.USER_MESSAGE_LIST, params, new OkHttpAction.ActionCallBack() {
 			@Override
 			public void actionCallBack(Object result) {
@@ -58,28 +53,26 @@ public class GetUserMessageListAction {
 						java.lang.reflect.Type type = new TypeToken<MessageInfo>() {}.getType();
 						MessageInfo messageInfo = gson.fromJson(mObj.toString(),type);
 						messageInfos.add(messageInfo);
-						if(i== messageJArr.length()-1){
-							mLastMsgId = messageInfo.getMessageId();
-						}
 					} catch (JSONException e) {
 						e.printStackTrace();
+						iGetUerMessageCallback.getMessageErrorBack(e);
 					}
 
 				}
-				iGetUerMessageCallback.getMessageSuccessBack(messageInfos,mLastMsgId);
+				iGetUerMessageCallback.getMessageSuccessBack(messageInfos);
 			}
 
 			@Override
 			public void actionErrorBack(Call call, Exception e) {
-				iGetUerMessageCallback.getMessageErrorBack();
+				iGetUerMessageCallback.getMessageErrorBack(e);
 			}
 		});
 	}
 
 
 	public interface IGetUerMessageCallback {
-		void getMessageSuccessBack(ArrayList<MessageInfo> messageInfos,int lastMessageId);
-		void getMessageErrorBack();
+		void getMessageSuccessBack(ArrayList<MessageInfo> messageInfos);
+		void getMessageErrorBack(Exception e);
 	}
 
 }

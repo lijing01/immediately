@@ -76,20 +76,20 @@ public class MessagesFragment extends BaseFragment {
 			}
 			GetUserMessageListAction getUserMessageListAction = new GetUserMessageListAction(mActivity, new GetUserMessageListAction.IGetUerMessageCallback() {
 				@Override
-				public void getMessageSuccessBack(ArrayList<MessageInfo> messageInfos, int lstMsgId) {
+				public void getMessageSuccessBack(ArrayList<MessageInfo> messageInfos) {
 					if(lastMessageId == 0){
 						myMessageRecycleAdapter.getDataList().clear();
 					}
 					myMessageRecycleAdapter.removeFooterLoading();
 					mSwipeRefreshLayout.setRefreshing(false);
 					isLoadingMore = false;
-					lastMessageId = lstMsgId;
+					lastMessageId = messageInfos.get(messageInfos.size()-1).getMessageId();
 					myMessageRecycleAdapter.setDataList(messageInfos);
 					myMessageRecycleAdapter.notifyDataSetChanged();
 				}
 
 				@Override
-				public void getMessageErrorBack() {
+				public void getMessageErrorBack(Exception e) {
 					myMessageRecycleAdapter.removeFooterLoading();
 					isLoadingMore = false;
 				}
