@@ -93,10 +93,21 @@ public class MessagesFragment extends BaseFragment {
 			loginParams.put("username", "7203c6f7-b16a-42f5-9905-10a412c98219");
 			loginParams.put("password", "123");
 			mApiWrapper.login(loginParams)
+					.onErrorReturn(new Func1<Throwable, LoginInfo>() {
+						@Override
+						public LoginInfo call(Throwable throwable) {
+							Log.v(ApiWrapper.TAG_STRING,"login Exception");
+							return null;
+						}
+					})
 					.flatMap(new Func1<LoginInfo, Observable<ArrayList<MessageInfo>>>() {
 						@Override
 						public Observable<ArrayList<MessageInfo>> call(LoginInfo loginInfo) {
-							return mApiWrapper.getMessageInfo(messageListParams);
+							if(loginInfo != null) {
+								return mApiWrapper.getMessageInfo(messageListParams);
+							}else{
+								return null;
+							}
 						}
 					})
 					.subscribeOn(Schedulers.io())
@@ -105,6 +116,7 @@ public class MessagesFragment extends BaseFragment {
 						@Override
 						public void onCompleted() {
 							Log.v(ApiWrapper.TAG_STRING,"getMessage onCompleted");
+							//根据数据添加 empty view 等异常情况处理
 						}
 
 						@Override
@@ -128,6 +140,7 @@ public class MessagesFragment extends BaseFragment {
 							myMessageRecycleAdapter.notifyDataSetChanged();
 						}
 					});
+
 		}
 	}
 }
