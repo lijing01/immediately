@@ -16,12 +16,13 @@ import rx.Subscriber;
 
 /**
  * Created by Trace (Tapatalk) on 2017/1/7.
+ * Api wrapper
  */
 
 public class ApiWrapper {
 	public static final String TAG_STRING = "rx_api";
 
-	Context mContext;
+	private Context mContext;
 
 	public ApiWrapper(Context context){
 		this.mContext = context;

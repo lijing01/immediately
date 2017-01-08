@@ -16,34 +16,36 @@ import okhttp3.Call;
 
 /**
  * Created by Trace (Tapatalk) on 2016/4/4.
+ * 登录 action
  */
-public class UserLoginAction {
+class UserLoginAction {
 	private Context mContext;
 	private OkHttpAction okHttpAction;
 	private OkHttpAction.ActionCallBack iActionCallBack;
 
-	public UserLoginAction(Context context,OkHttpAction.ActionCallBack actionCallBack){
+	UserLoginAction(Context context, OkHttpAction.ActionCallBack actionCallBack) {
 		this.mContext = context;
 		this.iActionCallBack = actionCallBack;
 	}
 
 
-	public void call(HashMap<String, Object> params) {
+	void call(HashMap<String, Object> params) {
 		okHttpAction = new OkHttpAction(mContext);
 		okHttpAction.postJsonObjectAction(UrlManager.USER_LOGIN, params, new OkHttpAction.ActionCallBack() {
 			@Override
 			public void actionCallBack(Object result) {
-				JSONObject resultObj = (JSONObject)result;
+				JSONObject resultObj = (JSONObject) result;
 				JSONObject userObj = resultObj.optJSONObject("user");
 				Gson gson = new Gson();
-				java.lang.reflect.Type type = new TypeToken<LoginInfo>() {}.getType();
-				LoginInfo loginInfo = gson.fromJson(userObj.toString(),type);
+				java.lang.reflect.Type type = new TypeToken<LoginInfo>() {
+				}.getType();
+				LoginInfo loginInfo = gson.fromJson(userObj.toString(), type);
 				iActionCallBack.actionCallBack(loginInfo);
-				}
+			}
 
 			@Override
 			public void actionErrorBack(Call call, Exception e) {
-				iActionCallBack.actionErrorBack(call,e);
+				iActionCallBack.actionErrorBack(call, e);
 			}
 		});
 	}

@@ -23,7 +23,7 @@ import java.util.ArrayList;
  */
 public class MyMessageRecycleAdapter extends BaseRecyclerAdapter {
 
-	public static final int TYPE_MESSAGE_INFO = 1001;
+	private static final int TYPE_MESSAGE_INFO = 1001;
 
 	public MyMessageRecycleAdapter(Activity activity) {
 		super(activity);
@@ -76,12 +76,12 @@ public class MyMessageRecycleAdapter extends BaseRecyclerAdapter {
 		return super.getItemViewType(position);
 	}
 
-	static class MessageViewHolder extends RecyclerView.ViewHolder {
-		public SimpleDraweeView imageView;
-		public TextView username, time, content;
-		public GridPicLayout images;
+	private static class MessageViewHolder extends RecyclerView.ViewHolder {
+		SimpleDraweeView imageView;
+		TextView username, time, content;
+		GridPicLayout images;
 
-		public MessageViewHolder(View itemView) {
+		MessageViewHolder(View itemView) {
 			super(itemView);
 			this.imageView = ViewUtil.$(itemView, R.id.avatar);
 			this.username = ViewUtil.$(itemView, R.id.username);

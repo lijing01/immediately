@@ -19,20 +19,21 @@ import okhttp3.Call;
 
 /**
  * Created by Trace (Tapatalk) on 2016/3/27.
+ * 获取列表信息 action
  */
-public class UserMessageListAction {
+class UserMessageListAction {
 	private Context mContext;
-	private OkHttpAction okHttpAction;
+	private OkHttpAction mOkHttpAction;
 	private IGetUerMessageCallback iGetUerMessageCallback;
 
-	public UserMessageListAction(Context context, IGetUerMessageCallback getUerMessageCallback) {
+	UserMessageListAction(Context context, IGetUerMessageCallback getUerMessageCallback) {
 		this.mContext = context;
 		this.iGetUerMessageCallback = getUerMessageCallback;
 	}
 
-	public void call(HashMap<String, Object> params) {
-		okHttpAction = new OkHttpAction(mContext);
-		okHttpAction.postJsonObjectAction(UrlManager.USER_MESSAGE_LIST, params, new OkHttpAction.ActionCallBack() {
+	void call(HashMap<String, Object> params) {
+		mOkHttpAction = new OkHttpAction(mContext);
+		mOkHttpAction.postJsonObjectAction(UrlManager.USER_MESSAGE_LIST, params, new OkHttpAction.ActionCallBack() {
 			@Override
 			public void actionCallBack(Object result) {
 				/**
@@ -44,9 +45,9 @@ public class UserMessageListAction {
 //				// 不转换没有 @Expose 注解的字段
 //				builder.excludeFieldsWithoutExposeAnnotation();
 				Gson gson = new Gson();
-				ArrayList<MessageInfo> messageInfos = new ArrayList<MessageInfo>();
+				ArrayList<MessageInfo> messageInfos = new ArrayList<>();
 				for(int i=0;i<messageJArr.length();i++){
-					JSONObject mObj = null;
+					JSONObject mObj;
 					try {
 						mObj = messageJArr.getJSONObject(i);
 						java.lang.reflect.Type type = new TypeToken<MessageInfo>() {}.getType();
@@ -69,7 +70,7 @@ public class UserMessageListAction {
 	}
 
 
-	public interface IGetUerMessageCallback {
+	interface IGetUerMessageCallback {
 		void getMessageSuccessBack(ArrayList<MessageInfo> messageInfos);
 		void getMessageErrorBack(Exception e);
 	}
