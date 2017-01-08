@@ -11,8 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.thefinestartist.finestwebview.FinestWebView;
 import com.tracelijing.immediately.R;
 import com.tracelijing.immediately.action.ApiWrapper;
+import com.tracelijing.immediately.adapter.BaseRecyclerAdapter;
 import com.tracelijing.immediately.adapter.MyMessageRecycleAdapter;
 import com.tracelijing.immediately.modle.LoginInfo;
 import com.tracelijing.immediately.modle.MessageInfo;
@@ -71,6 +73,15 @@ public class MessagesFragment extends BaseFragment {
 				mSwipeRefreshLayout.setRefreshing(true);
 				lastMessageId = 0;
 				getMessages();
+			}
+		});
+
+		myMessageRecycleAdapter.setOnItemClickListener(new BaseRecyclerAdapter.IOnRecyclerViewItemClickListener(){
+			@Override
+			public void onItemClick(View v, int position) {
+				MessageInfo messageInfo = (MessageInfo)myMessageRecycleAdapter.getDataList().get(position);
+				if(messageInfo.getLinkUrl()!=null && !messageInfo.getLinkUrl().equals(""))
+				new FinestWebView.Builder(mActivity).show(messageInfo.getLinkUrl());
 			}
 		});
 

@@ -24,6 +24,7 @@ public class BaseRecyclerAdapter extends RecyclerView.Adapter {
 	private static final int TYPE_LOADING = 1000;
 	private ArrayList<Object> mDataList = new ArrayList<>();
 	protected Activity mActivity;
+	private IOnRecyclerViewItemClickListener mIOnRecyclerViewItemClickListener;
 
 	public BaseRecyclerAdapter(Activity activity) {
 		this.mActivity = activity;
@@ -42,7 +43,16 @@ public class BaseRecyclerAdapter extends RecyclerView.Adapter {
 	}
 
 	@Override
-	public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+	public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+		// FIXME: 2017/1/8 need to change it ot onCreateViewHoloder
+		holder.itemView.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(mIOnRecyclerViewItemClickListener!=null) {
+					mIOnRecyclerViewItemClickListener.onItemClick(v, position);
+				}
+			}
+		});
 		if (TYPE_LOADING == getItemViewType(position)) {
 			return;
 		}
@@ -86,5 +96,13 @@ public class BaseRecyclerAdapter extends RecyclerView.Adapter {
 		if (getDataList().contains(FOOTER_LOADING)) {
 			getDataList().remove(FOOTER_LOADING);
 		}
+	}
+
+	public void setOnItemClickListener(IOnRecyclerViewItemClickListener iOnRecyclerViewItemClickListener){
+		this.mIOnRecyclerViewItemClickListener = iOnRecyclerViewItemClickListener;
+	}
+
+	public interface IOnRecyclerViewItemClickListener {
+		void onItemClick(View v, int postion);
 	}
 }
