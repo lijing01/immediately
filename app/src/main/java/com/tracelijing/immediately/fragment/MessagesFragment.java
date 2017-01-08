@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tracelijing.immediately.R;
-import com.tracelijing.immediately.action.GetUserMessageListAction;
+import com.tracelijing.immediately.action.UserMessageListAction;
 import com.tracelijing.immediately.adapter.MyMessageRecycleAdapter;
 import com.tracelijing.immediately.modle.MessageInfo;
 import com.tracelijing.immediately.utils.RecyclerViewOnScrollListener;
@@ -74,7 +74,7 @@ public class MessagesFragment extends BaseFragment {
 			if (lastMessageId != 0) {
 				params.put("messageIdLessThan", String.valueOf(lastMessageId));
 			}
-			GetUserMessageListAction getUserMessageListAction = new GetUserMessageListAction(mActivity, new GetUserMessageListAction.IGetUerMessageCallback() {
+			UserMessageListAction getUserMessageListAction = new UserMessageListAction(mActivity, new UserMessageListAction.IGetUerMessageCallback() {
 				@Override
 				public void getMessageSuccessBack(ArrayList<MessageInfo> messageInfos) {
 					if(lastMessageId == 0){

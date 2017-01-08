@@ -20,13 +20,13 @@ import okhttp3.Call;
 /**
  * Created by Trace (Tapatalk) on 2016/3/27.
  */
-public class GetUserMessageListAction {
+public class UserMessageListAction {
 	private Context mContext;
 	private OkHttpAction okHttpAction;
 	private IGetUerMessageCallback iGetUerMessageCallback;
 	private int mLastMsgId;
 
-	public GetUserMessageListAction(Context context, IGetUerMessageCallback getUerMessageCallback) {
+	public UserMessageListAction(Context context, IGetUerMessageCallback getUerMessageCallback) {
 		this.mContext = context;
 		this.iGetUerMessageCallback = getUerMessageCallback;
 	}

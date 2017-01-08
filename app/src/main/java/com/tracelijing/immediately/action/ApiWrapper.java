@@ -54,8 +54,8 @@ public class ApiWrapper {
 
 			@Override
 			public void call(final Subscriber<? super ArrayList<MessageInfo>> subscriber) {
-				GetUserMessageListAction getUserMessageListAction
-						= new GetUserMessageListAction(mContext, new GetUserMessageListAction.IGetUerMessageCallback() {
+				UserMessageListAction getUserMessageListAction
+						= new UserMessageListAction(mContext, new UserMessageListAction.IGetUerMessageCallback() {
 					@Override
 					public void getMessageSuccessBack(ArrayList<MessageInfo> messageInfos) {
 						subscriber.onNext(messageInfos);
