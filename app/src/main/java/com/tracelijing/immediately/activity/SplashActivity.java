@@ -44,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
 				intentToEntry();
 			}
 		}, 3 * 1000);
-		tryLogin();
+//		tryLogin();
 
 	}
 

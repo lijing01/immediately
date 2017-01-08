@@ -13,14 +13,17 @@ import android.view.ViewGroup;
 import com.tracelijing.immediately.R;
 import com.tracelijing.immediately.action.ApiWrapper;
 import com.tracelijing.immediately.adapter.MyMessageRecycleAdapter;
+import com.tracelijing.immediately.modle.LoginInfo;
 import com.tracelijing.immediately.modle.MessageInfo;
 import com.tracelijing.immediately.utils.RecyclerViewOnScrollListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import rx.Subscriber;
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -34,6 +37,7 @@ public class MessagesFragment extends BaseFragment {
 	private MyMessageRecycleAdapter myMessageRecycleAdapter;
 	private int lastMessageId;
 	private boolean isLoadingMore = false;
+	private HashMap<String, Object> messageListParams = new HashMap<>();
 
 	@Nullable
 	@Override
@@ -69,38 +73,65 @@ public class MessagesFragment extends BaseFragment {
 		});
 
 		mApiWrapper = new ApiWrapper(mActivity);
+		messageListParams.put("limit", 25);
 		getMessages();
 
 	}
 
 	private void getMessages(){
 		if(!isLoadingMore) {
-			HashMap<String, Object> params = new HashMap<>();
-			params.put("limit", 25);
 			if (lastMessageId != 0) {
-				params.put("messageIdLessThan", String.valueOf(lastMessageId));
+				messageListParams.put("messageIdLessThan", String.valueOf(lastMessageId));
 			}
-
 			myMessageRecycleAdapter.showFooterLoading();
 			isLoadingMore = true;
 
-			mApiWrapper.getMessageInfo(params)
+//			mApiWrapper.getMessageInfo(messageListParams)
+//					.subscribeOn(Schedulers.io())
+//					.observeOn(AndroidSchedulers.mainThread())
+//					.subscribe(new Subscriber<ArrayList<MessageInfo>>() {
+//						@Override
+//						public void onCompleted() {
+//
+//						}
+//
+//						@Override
+//						public void onError(Throwable e) {
+//							myMessageRecycleAdapter.removeFooterLoading();
+//							isLoadingMore = false;
+//						}
+//
+//						@Override
+//						public void onNext(ArrayList<MessageInfo> messageInfos) {
+//							lastMessageId = messageInfos.get(messageInfos.size()-1).getMessageId();
+//							if(lastMessageId == 0){
+//								myMessageRecycleAdapter.getDataList().clear();
+//							}
+//							myMessageRecycleAdapter.removeFooterLoading();
+//							mSwipeRefreshLayout.setRefreshing(false);
+//							isLoadingMore = false;
+//							myMessageRecycleAdapter.setDataList(messageInfos);
+//							myMessageRecycleAdapter.notifyDataSetChanged();
+//						}
+//					});
+
+
+			//先登录，再获取信息，串联rx action
+			HashMap<String, Object> loginParams = new HashMap<>();
+			loginParams.put("username", "7203c6f7-b16a-42f5-9905-10a412c98219");
+			loginParams.put("password", "123");
+			mApiWrapper.login(loginParams)
+					.flatMap(new Func1<LoginInfo, Observable<ArrayList<MessageInfo>>>() {
+						@Override
+						public Observable<ArrayList<MessageInfo>> call(LoginInfo loginInfo) {
+							return mApiWrapper.getMessageInfo(messageListParams);
+						}
+					})
 					.subscribeOn(Schedulers.io())
 					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(new Subscriber<ArrayList<MessageInfo>>() {
+					.subscribe(new Action1<ArrayList<MessageInfo>>() {
 						@Override
-						public void onCompleted() {
-
-						}
-
-						@Override
-						public void onError(Throwable e) {
-							myMessageRecycleAdapter.removeFooterLoading();
-							isLoadingMore = false;
-						}
-
-						@Override
-						public void onNext(ArrayList<MessageInfo> messageInfos) {
+						public void call(ArrayList<MessageInfo> messageInfos) {
 							lastMessageId = messageInfos.get(messageInfos.size()-1).getMessageId();
 							if(lastMessageId == 0){
 								myMessageRecycleAdapter.getDataList().clear();
