@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tracelijing.immediately.R;
-import com.tracelijing.immediately.action.UserMessageListAction;
+import com.tracelijing.immediately.action.ApiWrapper;
 import com.tracelijing.immediately.adapter.MyMessageRecycleAdapter;
 import com.tracelijing.immediately.modle.MessageInfo;
 import com.tracelijing.immediately.utils.RecyclerViewOnScrollListener;
@@ -19,11 +19,16 @@ import com.tracelijing.immediately.utils.RecyclerViewOnScrollListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 /**
  * Created by Trace (Tapatalk) on 2016/3/31.
  */
 public class MessagesFragment extends BaseFragment {
-	private Activity mActivity;
+	Activity mActivity;
+	private ApiWrapper mApiWrapper;
 	private SwipeRefreshLayout mSwipeRefreshLayout;
 	private RecyclerView mRecyclerView;
 	private MyMessageRecycleAdapter myMessageRecycleAdapter;
@@ -63,6 +68,7 @@ public class MessagesFragment extends BaseFragment {
 			}
 		});
 
+		mApiWrapper = new ApiWrapper(mActivity);
 		getMessages();
 
 	}
@@ -74,29 +80,38 @@ public class MessagesFragment extends BaseFragment {
 			if (lastMessageId != 0) {
 				params.put("messageIdLessThan", String.valueOf(lastMessageId));
 			}
-			UserMessageListAction getUserMessageListAction = new UserMessageListAction(mActivity, new UserMessageListAction.IGetUerMessageCallback() {
-				@Override
-				public void getMessageSuccessBack(ArrayList<MessageInfo> messageInfos) {
-					if(lastMessageId == 0){
-						myMessageRecycleAdapter.getDataList().clear();
-					}
-					myMessageRecycleAdapter.removeFooterLoading();
-					mSwipeRefreshLayout.setRefreshing(false);
-					isLoadingMore = false;
-					lastMessageId = messageInfos.get(messageInfos.size()-1).getMessageId();
-					myMessageRecycleAdapter.setDataList(messageInfos);
-					myMessageRecycleAdapter.notifyDataSetChanged();
-				}
 
-				@Override
-				public void getMessageErrorBack(Exception e) {
-					myMessageRecycleAdapter.removeFooterLoading();
-					isLoadingMore = false;
-				}
-			});
-			getUserMessageListAction.call(params);
 			myMessageRecycleAdapter.showFooterLoading();
 			isLoadingMore = true;
+
+			mApiWrapper.getMessageInfo(params)
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(new Subscriber<ArrayList<MessageInfo>>() {
+						@Override
+						public void onCompleted() {
+
+						}
+
+						@Override
+						public void onError(Throwable e) {
+							myMessageRecycleAdapter.removeFooterLoading();
+							isLoadingMore = false;
+						}
+
+						@Override
+						public void onNext(ArrayList<MessageInfo> messageInfos) {
+							lastMessageId = messageInfos.get(messageInfos.size()-1).getMessageId();
+							if(lastMessageId == 0){
+								myMessageRecycleAdapter.getDataList().clear();
+							}
+							myMessageRecycleAdapter.removeFooterLoading();
+							mSwipeRefreshLayout.setRefreshing(false);
+							isLoadingMore = false;
+							myMessageRecycleAdapter.setDataList(messageInfos);
+							myMessageRecycleAdapter.notifyDataSetChanged();
+						}
+					});
 		}
 	}
 }

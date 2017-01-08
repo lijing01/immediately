@@ -24,7 +24,6 @@ public class UserMessageListAction {
 	private Context mContext;
 	private OkHttpAction okHttpAction;
 	private IGetUerMessageCallback iGetUerMessageCallback;
-	private int mLastMsgId;
 
 	public UserMessageListAction(Context context, IGetUerMessageCallback getUerMessageCallback) {
 		this.mContext = context;
