@@ -20,10 +20,10 @@ import java.util.ArrayList;
  */
 public class BaseRecyclerAdapter extends RecyclerView.Adapter {
 
-	public final String FOOTER_LOADING = "footer_loading";
-	public static final int TYPE_LOADING = 1000;
+	private final String FOOTER_LOADING = "footer_loading";
+	private static final int TYPE_LOADING = 1000;
 	private ArrayList<Object> mDataList = new ArrayList<>();
-	public Activity mActivity;
+	protected Activity mActivity;
 
 	public BaseRecyclerAdapter(Activity activity) {
 		this.mActivity = activity;
