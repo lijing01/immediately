@@ -21,8 +21,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import rx.Observable;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -86,36 +86,6 @@ public class MessagesFragment extends BaseFragment {
 			myMessageRecycleAdapter.showFooterLoading();
 			isLoadingMore = true;
 
-//			mApiWrapper.getMessageInfo(messageListParams)
-//					.subscribeOn(Schedulers.io())
-//					.observeOn(AndroidSchedulers.mainThread())
-//					.subscribe(new Subscriber<ArrayList<MessageInfo>>() {
-//						@Override
-//						public void onCompleted() {
-//
-//						}
-//
-//						@Override
-//						public void onError(Throwable e) {
-//							myMessageRecycleAdapter.removeFooterLoading();
-//							isLoadingMore = false;
-//						}
-//
-//						@Override
-//						public void onNext(ArrayList<MessageInfo> messageInfos) {
-//							lastMessageId = messageInfos.get(messageInfos.size()-1).getMessageId();
-//							if(lastMessageId == 0){
-//								myMessageRecycleAdapter.getDataList().clear();
-//							}
-//							myMessageRecycleAdapter.removeFooterLoading();
-//							mSwipeRefreshLayout.setRefreshing(false);
-//							isLoadingMore = false;
-//							myMessageRecycleAdapter.setDataList(messageInfos);
-//							myMessageRecycleAdapter.notifyDataSetChanged();
-//						}
-//					});
-
-
 			//先登录，再获取信息，串联rx action
 			HashMap<String, Object> loginParams = new HashMap<>();
 			loginParams.put("username", "7203c6f7-b16a-42f5-9905-10a412c98219");
@@ -129,9 +99,20 @@ public class MessagesFragment extends BaseFragment {
 					})
 					.subscribeOn(Schedulers.io())
 					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(new Action1<ArrayList<MessageInfo>>() {
+					.subscribe(new Subscriber<ArrayList<MessageInfo>>() {
 						@Override
-						public void call(ArrayList<MessageInfo> messageInfos) {
+						public void onCompleted() {
+
+						}
+
+						@Override
+						public void onError(Throwable e) {
+							myMessageRecycleAdapter.removeFooterLoading();
+							isLoadingMore = false;
+						}
+
+						@Override
+						public void onNext(ArrayList<MessageInfo> messageInfos) {
 							lastMessageId = messageInfos.get(messageInfos.size()-1).getMessageId();
 							if(lastMessageId == 0){
 								myMessageRecycleAdapter.getDataList().clear();
