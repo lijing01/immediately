@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.thefinestartist.finestwebview.FinestWebView;
 import com.tracelijing.immediately.R;
@@ -80,8 +82,12 @@ public class MessagesFragment extends BaseFragment {
 			@Override
 			public void onItemClick(View v, int position) {
 				MessageInfo messageInfo = (MessageInfo)myMessageRecycleAdapter.getDataList().get(position);
-				if(messageInfo.getLinkUrl()!=null && !messageInfo.getLinkUrl().equals(""))
-				new FinestWebView.Builder(mActivity).show(messageInfo.getLinkUrl());
+				if(messageInfo.getLinkUrl()!=null && !messageInfo.getLinkUrl().equals("")
+						&& !messageInfo.getLinkUrl().startsWith("jike")) {
+					new FinestWebView.Builder(mActivity).show(messageInfo.getLinkUrl());
+				}else{
+					setAnimation(v);
+				}
 			}
 		});
 
@@ -153,5 +159,10 @@ public class MessagesFragment extends BaseFragment {
 					});
 
 		}
+	}
+
+	private void setAnimation(View viewToAnimate) {
+		Animation animation = AnimationUtils.loadAnimation(mActivity, R.anim.shake);
+		viewToAnimate.startAnimation(animation);
 	}
 }
