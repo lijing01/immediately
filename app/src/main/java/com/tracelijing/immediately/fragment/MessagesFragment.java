@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import rx.schedulers.Schedulers;
 
 /**
  * Created by Trace (Tapatalk) on 2016/3/31.
+ * 消息信息页面
  */
 public class MessagesFragment extends BaseFragment {
 	Activity mActivity;
@@ -102,17 +104,19 @@ public class MessagesFragment extends BaseFragment {
 					.subscribe(new Subscriber<ArrayList<MessageInfo>>() {
 						@Override
 						public void onCompleted() {
-
+							Log.v(ApiWrapper.TAG_STRING,"getMessage onCompleted");
 						}
 
 						@Override
 						public void onError(Throwable e) {
+							Log.v(ApiWrapper.TAG_STRING,"getMessage onError");
 							myMessageRecycleAdapter.removeFooterLoading();
 							isLoadingMore = false;
 						}
 
 						@Override
 						public void onNext(ArrayList<MessageInfo> messageInfos) {
+							Log.v(ApiWrapper.TAG_STRING,"getMessage onNext");
 							lastMessageId = messageInfos.get(messageInfos.size()-1).getMessageId();
 							if(lastMessageId == 0){
 								myMessageRecycleAdapter.getDataList().clear();
