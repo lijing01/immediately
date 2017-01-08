@@ -26,7 +26,7 @@ public class OkHttpAction {
 		this.mContext = context;
 	}
 
-	public void postJsonObjectAction(final String callUrl, final HashMap<String, String> params,
+	public void postJsonObjectAction(final String callUrl, final HashMap<String, Object> params,
 									 final ActionCallBack callBack) {
 		OkHttpUtils.initClient(OkHttpClientUtil.getInstance(mContext));
 		HashMap<String, String> headers = OkCommonHeaderTool.getCommentHeaders(mContext);
