@@ -1,4 +1,4 @@
-package com.tracelijing.immediately.fragment;
+package com.tracelijing.immediately.utils;
 
 import com.squareup.leakcanary.RefWatcher;
 import com.tracelijing.immediately.MyApplication;

@@ -7,11 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tracelijing.immediately.R;
+import com.tracelijing.immediately.utils.BaseFragment;
 
 /**
  * Created by Trace (Tapatalk) on 2016/3/31.
  */
-public class MeFragment extends BaseFragment{
+public class MeFragment extends BaseFragment {
 	View view;
 
 	@Nullable

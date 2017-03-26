@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.tracelijing.immediately.R;
+import com.tracelijing.immediately.utils.BaseFragment;
 
 /**
  * Created by Trace (Tapatalk) on 2016/3/31.

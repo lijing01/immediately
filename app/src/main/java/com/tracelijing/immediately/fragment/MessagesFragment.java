@@ -20,6 +20,7 @@ import com.tracelijing.immediately.adapter.BaseRecyclerAdapter;
 import com.tracelijing.immediately.adapter.MyMessageRecycleAdapter;
 import com.tracelijing.immediately.modle.LoginInfo;
 import com.tracelijing.immediately.modle.MessageInfo;
+import com.tracelijing.immediately.utils.BaseFragment;
 import com.tracelijing.immediately.utils.RecyclerViewOnScrollListener;
 
 import java.util.ArrayList;
