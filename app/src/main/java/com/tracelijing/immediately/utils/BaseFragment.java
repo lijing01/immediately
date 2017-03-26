@@ -2,7 +2,7 @@ package com.tracelijing.immediately.utils;
 
 import com.squareup.leakcanary.RefWatcher;
 import com.tracelijing.immediately.MyApplication;
-import com.trello.rxlifecycle.components.RxFragment;
+import com.trello.rxlifecycle.components.support.RxFragment;
 
 /**
  * Created by Trace (Tapatalk) on 2016/3/27.

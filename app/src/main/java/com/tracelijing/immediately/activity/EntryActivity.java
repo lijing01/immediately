@@ -19,6 +19,7 @@ import com.tracelijing.immediately.R;
 import com.tracelijing.immediately.fragment.ExploreFragment;
 import com.tracelijing.immediately.fragment.MeFragment;
 import com.tracelijing.immediately.fragment.MessagesFragment;
+import com.tracelijing.immediately.utils.BaseFragment;
 import com.tracelijing.tlibrary.ViewUtil;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class EntryActivity extends AppCompatActivity implements ViewPager.OnPage
 	private Toolbar toolbar;
 
 
-	private ArrayList<Fragment> fragments = new ArrayList<>();
+	private ArrayList<BaseFragment> fragments = new ArrayList<>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,9 +93,9 @@ public class EntryActivity extends AppCompatActivity implements ViewPager.OnPage
 	}
 
 	protected void init() {
-		Fragment findArticleFragment = new ExploreFragment();
-		Fragment myMessageFragment = new MessagesFragment();
-		Fragment hotMessageFragment = new MeFragment();
+		BaseFragment findArticleFragment = new ExploreFragment();
+		BaseFragment myMessageFragment = new MessagesFragment();
+		BaseFragment hotMessageFragment = new MeFragment();
 		fragments.add(findArticleFragment);
 		fragments.add(myMessageFragment);
 		fragments.add(hotMessageFragment);
@@ -150,9 +151,9 @@ public class EntryActivity extends AppCompatActivity implements ViewPager.OnPage
 
 	public class TabPageAdapter extends FragmentPagerAdapter {
 
-		private List<Fragment> fragments;
+		private List<BaseFragment> fragments;
 
-		public TabPageAdapter(FragmentManager fm, List<Fragment> fragments) {
+		public TabPageAdapter(FragmentManager fm, List<BaseFragment> fragments) {
 			super(fm);
 			this.fragments = fragments;
 		}
