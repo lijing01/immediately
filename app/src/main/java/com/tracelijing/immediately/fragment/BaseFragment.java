@@ -1,15 +1,14 @@
 package com.tracelijing.immediately.fragment;
 
-import android.support.v4.app.Fragment;
-
 import com.squareup.leakcanary.RefWatcher;
 import com.tracelijing.immediately.MyApplication;
+import com.trello.rxlifecycle.components.RxFragment;
 
 /**
  * Created by Trace (Tapatalk) on 2016/3/27.
  * BaseFragment contaion LeakCanary
  */
-public class BaseFragment extends Fragment {
+public class BaseFragment extends RxFragment {
 	public void onResume() {
 		super.onResume();
 	}

@@ -127,6 +127,7 @@ public class MessagesFragment extends BaseFragment {
 							}
 						}
 					})
+					.compose(this.<ArrayList<MessageInfo>>bindToLifecycle())
 					.subscribeOn(Schedulers.io())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(new Subscriber<ArrayList<MessageInfo>>() {
