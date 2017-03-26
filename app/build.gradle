@@ -98,9 +98,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':tlibrary')
     compile project(':okhttputils')
-    compile('com.squareup.okhttp3:mockwebserver:3.2.0') {
-        exclude(group: 'junit', module: 'junit')
-    }
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
     compile 'com.facebook.fresco:fresco:1.0.0'
